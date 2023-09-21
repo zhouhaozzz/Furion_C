@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:/software/mingw64/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "*.cpp",
+                "-o",
+                "${fileBasenameNoExtension}.exe",
+                "-I",
+                "G:/software/boost_1.79.0/include/boost-1_79/",
+                "-I",
+                "G:/software/eigen-3.4.0"
+            ],
+            "options": {
+                "cwd": "C:/software/mingw64/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: C:/software/mingw64/bin/g++.exe"
+        },
+        
+    ]
+}
