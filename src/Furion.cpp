@@ -8,7 +8,7 @@
 #define Pi 3.1415926536
 #define E  2.71828
 
-using namespace Furion_NS; //
+using namespace Furion_NS; 
 
 Furion::Furion(int rank1, int size1)
 {
