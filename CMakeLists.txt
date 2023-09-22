@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 #include_directories(C:/software/C_library/MPI/Include)
 include_directories(${CMAKE_SOURCE_DIR})
 
-find_package ( MPI )
+#find_package ( MPI )
 
 #message ( STATUS  "MPI_FOUND=${MPI_FOUND}" )
 #message ( STATUS  "MPI_CXX_INCLUDE_DIRS=${MPI_CXX_INCLUDE_DIRS}" )
