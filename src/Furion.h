@@ -17,7 +17,7 @@
 #include <cmath>
 #include <random>
 
-#include <mpi.h>
+//#include <mpi.h>
 
 using namespace std;
 

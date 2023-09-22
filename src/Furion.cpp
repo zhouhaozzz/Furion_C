@@ -9,7 +9,7 @@
 #define E  2.71828
 
 using namespace Furion_NS; //////////
-//sdkjfhdskjfhkjdshfjksdhfsjksdjkdsjk
+
 Furion::Furion(int rank1, int size1)
 {
 	std::cout << std::fixed;
@@ -45,7 +45,7 @@ Furion::Furion(int rank1, int size1)
 		}
 	}
 
-	MPI_Barrier(MPI_COMM_WORLD);
+	// MPI_Barrier(MPI_COMM_WORLD);
 	for (int i = 0; i < size1; i++)
 	{
 		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(5, rank1);}
