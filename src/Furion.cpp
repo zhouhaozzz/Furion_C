@@ -9,7 +9,7 @@
 #define E  2.71828
 
 using namespace Furion_NS; //////////
-
+//sdkjfhdskjfhkjdshfjksdhfsjksdjkdsjk
 Furion::Furion(int rank1, int size1)
 {
 	std::cout << std::fixed;
