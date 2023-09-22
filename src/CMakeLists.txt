@@ -19,7 +19,7 @@ add_executable( Furion
                 ${DIR_SOURCE_SRC}
               ) 
 
-target_link_libraries(Furion MPI::MPI_CXX)
+#target_link_libraries(Furion MPI::MPI_CXX)
 
 message(STATUS "DISPLAY_H: " ${DISPLAY_H})
 message(STATUS "FUR_SCRI_H: " ${FUR_SCRI_H})
