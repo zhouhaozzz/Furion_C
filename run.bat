@@ -40,7 +40,7 @@ REM 可执行文件的名称或路径
 set executable=Furion.exe 
 
 REM 要启动的进程数量
-set num_processes=8
+set num_processes=10
 
 REM 构建 mpiexec 命令
 set mpi_command=mpiexec -n %num_processes% %executable%
