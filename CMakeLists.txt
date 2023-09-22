@@ -10,18 +10,18 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 #include_directories(C:/software/C_library/eigen-3.4.0)
-include_directories(C:/software/C_library/MPI/Include)
+#include_directories(C:/software/C_library/MPI/Include)
 include_directories(${CMAKE_SOURCE_DIR})
 
 find_package ( MPI )
 
-message ( STATUS  "MPI_FOUND=${MPI_FOUND}" )
-message ( STATUS  "MPI_CXX_INCLUDE_DIRS=${MPI_CXX_INCLUDE_DIRS}" )
-message ( STATUS  "MPI_LIBRARIES=${MPI_LIBRARIES}" )
-if ( MPI_FOUND )
-	list ( APPEND PRJ_INCLUDE_DIRS ${MPI_CXX_INCLUDE_DIRS} )
-	list ( APPEND PRJ_LIBRARIES ${MPI_LIBRARIES} )
-endif ()
+#message ( STATUS  "MPI_FOUND=${MPI_FOUND}" )
+#message ( STATUS  "MPI_CXX_INCLUDE_DIRS=${MPI_CXX_INCLUDE_DIRS}" )
+#message ( STATUS  "MPI_LIBRARIES=${MPI_LIBRARIES}" )
+#if ( MPI_FOUND )
+#	list ( APPEND PRJ_INCLUDE_DIRS ${MPI_CXX_INCLUDE_DIRS} )
+#	list ( APPEND PRJ_LIBRARIES ${MPI_LIBRARIES} )
+#endif ()
 
 
 # 定义头文件路径对应的名字
