@@ -144,4 +144,6 @@ plt.box(True)
 plt.xticks(y_Tick)
 plt.yticks(phi_Tick)
 
+plt.savefig("Furion_plot4_6sigma.png",bbox_inches="tight")
+
 plt.show()

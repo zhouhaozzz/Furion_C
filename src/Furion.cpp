@@ -16,7 +16,7 @@ Furion::Furion(int rank1, int size1)
 	std::cout << std::setprecision(15);
 
 	no_surfe = new No_Surfe();
-	double wavelength = 1e-9;
+	double wavelength = 1e-8;
 	int n = Furion::n;
 	grating = new Grating(230e3, 2.0984e-2, 0, wavelength);
 
