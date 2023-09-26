@@ -5,9 +5,8 @@ using namespace Furion_NS;
 G_Furion_Cylinder_Ellipse_Mirror::G_Furion_Cylinder_Ellipse_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
     : G_Oe(beam_in, ds, di, chi, theta, surface, grating), center(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
 {
-    //this->center = G_Cylinder_Ellipse(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    //set_center(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
     reflect(beam_in, ds, di, chi, theta);
-
 }
 
 G_Furion_Cylinder_Ellipse_Mirror::~G_Furion_Cylinder_Ellipse_Mirror()
@@ -50,7 +49,7 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_p(double *X2, double *Y2, do
     for (int i = 0; i < n; i++) {Z0[i] = Z0[i] - center.r1;}
     matrixMulti(X2, Y2, Z2, OS_0, X0, Y0, Z0, n);
 
-    delete OS_0, OS_1, X0, Y0, Z0, ZZ;
+    delete[] OS_0, OS_1, X0, Y0, Z0, ZZ;
 }
 
 void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
@@ -69,10 +68,10 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_v(double *Nx, double *Ny, do
     matrixMulti(X0, Y0, Z0, OS_1, L, M, N, n);
     matrixMulti(Nx, Ny, Nz, OS_0, X0, Y0, Z0, n);
 
-    delete OS_0, OS_1, X0, Y0, Z0;
+    delete[] OS_0, OS_1, X0, Y0, Z0;
 }
 
-// void G_Furion_Cylinder_Ellipse_Mirror::set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
-// {
-//     this->center = G_Cylinder_Ellipse(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
-// }
+void G_Furion_Cylinder_Ellipse_Mirror::set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+{
+    this->center = G_Cylinder_Ellipse(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+}

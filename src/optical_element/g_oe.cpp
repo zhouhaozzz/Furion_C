@@ -66,12 +66,12 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
     
     beam_out = new G_Beam((this->X_), (this->Y_), (this->PHI), (this->PSI), beam_in->lambda);
 
-    delete L,M,N;
-    delete T, T1;
-    delete Nx, Ny, Nz;
-    delete hslope;
-    delete L2, M2, N2;
-    delete X3, Y3, Z3, L3, M3, N3;
+    delete[] L,M,N;
+    delete[] T, T1;
+    delete[] Nx, Ny, Nz;
+    delete[] hslope;
+    delete[] L2, M2, N2;
+    delete[] X3, Y3, Z3, L3, M3, N3;
 }
 
 void G_Oe::source_to_oe(double *X, double *Y, double ds, double *L, double *M, double *N)
@@ -93,7 +93,7 @@ void G_Oe::source_to_oe(double *X, double *Y, double ds, double *L, double *M, d
     matrixMulti(X0, Y0, Z0, OS_1, L, M, N, n);
     matrixMulti(this->L1, this->M1, this->N1, OS_0, X0, Y0, Z0, n);
 
-    delete X0, Y0, Z0, Z, OS_0, OS_1;
+    delete[] X0, Y0, Z0, Z, OS_0, OS_1;
 
 }
 
@@ -158,7 +158,7 @@ void G_Oe::h_slope(double *h_slope, double *Y2)
         Y2[i] = h0[i] + Y2[i];
     }
 
-    delete h0, h1, delta_Z1, delta_Z, delta_X;
+    delete[] h0, h1, delta_Z1, delta_Z, delta_X;
 }
 
 void G_Oe::oe_to_image(double *X3, double *Y3, double *Z3, double *L3, double *M3, double *N3, double *X2, double *Y2, double *Z2, double di, double *L2, double *M2, double *N2)
@@ -181,5 +181,5 @@ void G_Oe::oe_to_image(double *X3, double *Y3, double *Z3, double *L3, double *M
     matrixMulti(X0, Y0, Z0, OS_1, L2, M2, N2, n);
     matrixMulti(L3, M3, N3, OS_0, X0, Y0, Z0, n);
 
-    delete X0, Y0, Z0, OS_0, OS_1;
+    delete[] X0, Y0, Z0, OS_0, OS_1;
 }

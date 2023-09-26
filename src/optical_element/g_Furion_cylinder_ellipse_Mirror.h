@@ -22,7 +22,7 @@ namespace Furion_NS
         void normal(double *Nx, double *Ny, double *Nz) override;
         void cneter_to_oe_p(double *X2, double *Y2, double *Z2, double *X, double *Y, double *Z);
         void cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N);
-        //void set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
+        void set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
     };
 }
 

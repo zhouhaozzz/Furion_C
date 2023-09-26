@@ -43,7 +43,7 @@ void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L
     matrixMulti(this->L1, this->M1, this->N1, OS_1, X0, Y0, Z0, n);
 
 
-    delete X0, Y0, Z0, ZZ, OS_0, OS_1;
+    delete[] X0, Y0, Z0, ZZ, OS_0, OS_1;
 }
 
 
@@ -71,7 +71,7 @@ void G_Cylinder_Ellipse::intersection(double* T)
         this->Z2[i] = this->Z1[i] + T[i]*this->N1[i];
     }
 
-    delete A,B,C;
+    delete[] A,B,C;
 }
 
 void G_Cylinder_Ellipse::normal(double *Nx, double *Ny, double *Nz)
