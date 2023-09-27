@@ -50,8 +50,8 @@ void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2,
         N2[i] = cos_Beta[i]*Nz[i] + sin_Beta[i]* t_Base_z[i];
     }            
 
-    delete t_Base_x, t_Base_y, t_Base_z, t_Base_model;
-    delete sin_Alpha, sin_Beta, cos_Beta;
+    delete[] t_Base_x, t_Base_y, t_Base_z, t_Base_model;
+    delete[] sin_Alpha, sin_Beta, cos_Beta;
 }
 
 void Furion_Reflect_Vector::matrixCross(double *L2, double *M2, double *N2, double *Nx, double *Ny, double *Nz, double *L1, double *M1, double *N1)  //There is no matrix cross function in the Eigen library, and it can only be implemented by custom
