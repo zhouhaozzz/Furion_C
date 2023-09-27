@@ -12,7 +12,7 @@ namespace Furion_NS
 {
     class G_Furion_ellipsoid_Mirror : public G_Furion_Cylinder_Ellipse_Mirror
     {
-    public:
+    public: 
 
         G_Furion_ellipsoid_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
         ~G_Furion_ellipsoid_Mirror();
