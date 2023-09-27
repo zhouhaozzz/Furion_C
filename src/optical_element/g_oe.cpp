@@ -4,7 +4,7 @@
 using namespace Furion_NS;
 
 G_Oe::G_Oe(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, Grating* grating)
-    : beam_in(beam_in), grating(grating), surface(surface), theta(theta), chi(chi)
+    : beam_in(beam_in), grating(grating), surface(surface), theta(theta), chi(chi), beam_out(beam_in), Cff(0), theta2(0)
 {
     //beam_out = nullptr;
     // beam_out = G_Beam((this->X_, this->Y_, beam_in->phi, beam_in->psi, beam_in->lambda))

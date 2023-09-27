@@ -55,13 +55,13 @@ Furion::Furion(int rank1, int size1)
 	}
 	if (rank1 == 0) 
 	{
-		std::string inputString = std::to_string(size1);
+		/*std::string inputString = std::to_string(size1);
 		std::string command = ("python python_plot/Furion_plot4_6sigma.py " + inputString);
 		int returnCode = system(command.c_str());
 		if (returnCode != 0) 
 		{
         	std::cerr << "Python drawing script execution failed!" << std::endl;
-    	}
+    	}*/
 	}
 }
 

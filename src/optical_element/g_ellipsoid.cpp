@@ -37,6 +37,14 @@ void G_Ellipsoid::intersection(double* T)
         this->Z2[i] = this->Z1[i] + T[i]*this->N1[i];
     }
 
+    double sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sum = sum + this->X2[i];
+    }
+    cout << sum << endl;
+    exit(0);
+
     delete[] A,B,C;
 }
 

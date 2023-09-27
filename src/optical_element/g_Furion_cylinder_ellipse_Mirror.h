@@ -16,13 +16,13 @@ namespace Furion_NS
         G_Furion_Cylinder_Ellipse_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
         ~G_Furion_Cylinder_Ellipse_Mirror();
 
-        G_Cylinder_Ellipse center;
+        G_Cylinder_Ellipse* center;
 
         void intersection(double* T) override;
         void normal(double *Nx, double *Ny, double *Nz) override;
         void cneter_to_oe_p(double *X2, double *Y2, double *Z2, double *X, double *Y, double *Z);
         void cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N);
-        void set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
+        virtual void set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
     };
 }
 

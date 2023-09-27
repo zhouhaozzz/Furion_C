@@ -17,7 +17,7 @@ G_Cylinder_Ellipse::G_Cylinder_Ellipse(G_Beam* beam_in, double ds, double di, do
 
 G_Cylinder_Ellipse::~G_Cylinder_Ellipse()
 {
-    delete T, Nx, Ny, Nz;
+    delete[] T, Nx, Ny, Nz;
 }
 
 void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L, double* M, double* N)
