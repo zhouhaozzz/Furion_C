@@ -15,11 +15,13 @@ namespace Furion_NS
     public: 
 
         G_Furion_ellipsoid_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
-        virtual ~G_Furion_ellipsoid_Mirror();
+        ~G_Furion_ellipsoid_Mirror();
 
         void set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating) override;
     };
 }
 
 #endif
+
+
 

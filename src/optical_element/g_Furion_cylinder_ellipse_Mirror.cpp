@@ -5,12 +5,7 @@ using namespace Furion_NS;
 G_Furion_Cylinder_Ellipse_Mirror::G_Furion_Cylinder_Ellipse_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
     : G_Oe(beam_in, ds, di, chi, theta, surface, grating)//, center(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
 {
-    //center = 
-    cout << "G_Furion_Cylinder_Ellipse_Mirror begin" << endl;
-    set_center(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
-
-
-    reflect(beam_in, ds, di, chi, theta);
+    cout << "G_Furion_Cylinder_Ellipse_Mirror 初始化" << endl;
 }
 
 G_Furion_Cylinder_Ellipse_Mirror::~G_Furion_Cylinder_Ellipse_Mirror()
@@ -18,6 +13,13 @@ G_Furion_Cylinder_Ellipse_Mirror::~G_Furion_Cylinder_Ellipse_Mirror()
     //delete ct;
 }
 
+void G_Furion_Cylinder_Ellipse_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+{
+    set_center(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    reflect(beam_in, ds, di, chi, theta);
+    cout << "G_Furion_Cylinder_Ellipse_Mirror的run" << endl;
+
+}
 
 void G_Furion_Cylinder_Ellipse_Mirror::intersection(double* T)
 {
@@ -25,11 +27,14 @@ void G_Furion_Cylinder_Ellipse_Mirror::intersection(double* T)
     
     for (int i = 0; i < n; i++) {T[i] = center->T[i];}
     cneter_to_oe_p(this->X2, this->Y2, this->Z2, center->X2, center->Y2, center->Z2);
+    cout << "G_Furion_Cylinder_Ellipse_Mirror的intersection" << endl;
+
 }
 
 void G_Furion_Cylinder_Ellipse_Mirror::normal(double *Nx, double *Ny, double *Nz)
 {
     cneter_to_oe_v(Nx, Ny, Nz, center->Nx, center->Ny, center->Nz);
+    cout << "G_Furion_Cylinder_Ellipse_Mirror的normal" << endl;
 }
 
 
@@ -73,11 +78,12 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_v(double *Nx, double *Ny, do
     matrixMulti(Nx, Ny, Nz, OS_0, X0, Y0, Z0, n);
 
     delete[] OS_0, OS_1, X0, Y0, Z0;
+
 }
 
 void G_Furion_Cylinder_Ellipse_Mirror::set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
-
 {
     center = new G_Cylinder_Ellipse(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
-    cout << "父类的set_center" << endl;
+    center->run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    cout << "G_Furion_Cylinder_Ellipse_Mirror的set_center" << endl;
 }

@@ -5,7 +5,9 @@ using namespace Furion_NS;
 G_Ellipsoid::G_Ellipsoid(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
     : G_Cylinder_Ellipse(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
 {
-
+    cout << "初始化G_Ellipsoid" << endl;
+    run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    
 }
 
 G_Ellipsoid::~G_Ellipsoid()
@@ -17,9 +19,9 @@ void G_Ellipsoid::intersection(double* T)
 {
     int n = Furion::n;
 
-    double *A= new double[Furion::n];
-    double *B= new double[Furion::n];
-    double *C= new double[Furion::n];
+    double *A = new double[Furion::n];
+    double *B = new double[Furion::n];
+    double *C = new double[Furion::n];
     double a2 = this->a * this->a;
     double b2 = this->b * this->b;
     double ab2 = a2*b2;
@@ -36,14 +38,7 @@ void G_Ellipsoid::intersection(double* T)
         this->Y2[i] = this->Y1[i] + T[i]*this->M1[i];
         this->Z2[i] = this->Z1[i] + T[i]*this->N1[i];
     }
-
-    double sum = 0;
-    for (int i = 0; i < n; i++)
-    {
-        sum = sum + this->X2[i];
-    }
-    cout << sum << endl;
-    exit(0);
+    cout << "G_Ellipsoid的intersection" << endl;
 
     delete[] A,B,C;
 }
@@ -58,16 +53,18 @@ void G_Ellipsoid::normal(double *Nx, double *Ny, double *Nz)
     double b4 = b2*b2;
     double ab2 = a2*b2;
     double data;
-
+    
     for (int i = 0; i < n; i++) 
     {
         data = sqrt(this->Y2[i]*this->Y2[i]/b4 + this->Z2[i]*this->Z2[i]/a4 + this->X2[i] * this->X2[i] / b4);
+        Nx[i] = -(this->X2[i]/b2) / data;;
         Ny[i] = -(this->Y2[i]/b2) / data;
         Nz[i] = -(this->Z2[i]/a2) / data;
-        Nx[i] = 0;
 
         this->Nx[i] = Nx[i];
         this->Ny[i] = Ny[i];
         this->Nz[i] = Nz[i];
     }    
+
+    cout << "G_Ellipsoid的normal" << endl;
 }

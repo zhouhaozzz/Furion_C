@@ -75,7 +75,7 @@ psi_Tick = [psi_Mean-6*psi_Std,   psi_Mean-3*psi_Std,  psi_Mean,  psi_Mean+3*psi
 import matplotlib.pyplot as plt
 
 # Creating the Figure Window
-figure1 = plt.figure(figsize=(48/2.54, 20/2.54),dpi=200)
+figure1 = plt.figure(figsize=(48/2.54, 20/2.54),dpi=100)
 plt.axis('off')
 
 # Create the axes axes1

@@ -44,7 +44,7 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
     intersection(T);                                      //The intersection of light and optical components
 
     normal(Nx, Ny, Nz);                                   //mormal Find reflection vector
-    
+
     h_slope(hslope, this->Y2);      //Calculate the surface slope error    Find the slope of the corresponding position
     
     this->theta2 = Pi / 2 - asin(sin(Pi / 2 - theta) - grating->n0 * grating->m * grating->lambda_G);
@@ -94,7 +94,7 @@ void G_Oe::source_to_oe(double *X, double *Y, double ds, double *L, double *M, d
     matrixMulti(this->L1, this->M1, this->N1, OS_0, X0, Y0, Z0, n);
 
     delete[] X0, Y0, Z0, Z, OS_0, OS_1;
-
+    cout << " G_Oe的source_to_oe" << endl;
 }
 
 void G_Oe::matrixMulti(double *L2, double *M2, double *N2, double *matrix, double *L, double *M, double *N, int n)  //XYZ:1*3; LMN:1*n
@@ -119,6 +119,8 @@ void G_Oe::intersection(double *T)
         this->Y2[i] = 0;
         this->Z2[i] = this->Z1[i] + T[i]*this->N1[i];
     }
+    cout << " G_Oe的intersection" << endl;
+
 }
 
 void G_Oe::normal(double *Nx, double *Ny, double *Nz)
@@ -131,6 +133,8 @@ void G_Oe::normal(double *Nx, double *Ny, double *Nz)
         Ny[i] = 0;
         Nz[i] = 0;
     }
+
+    cout << "G_Oe的normal" << endl;
 }
 
 void G_Oe::h_slope(double *h_slope, double *Y2)
@@ -159,6 +163,8 @@ void G_Oe::h_slope(double *h_slope, double *Y2)
     }
 
     delete[] h0, h1, delta_Z1, delta_Z, delta_X;
+    cout << " G_Oe的h_slope" << endl;
+
 }
 
 void G_Oe::oe_to_image(double *X3, double *Y3, double *Z3, double *L3, double *M3, double *N3, double *X2, double *Y2, double *Z2, double di, double *L2, double *M2, double *N2)

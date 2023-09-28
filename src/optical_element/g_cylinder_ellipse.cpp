@@ -12,12 +12,18 @@ G_Cylinder_Ellipse::G_Cylinder_Ellipse(G_Beam* beam_in, double ds, double di, do
     this->a = (r1 + r2) / 2;
     this->b = sqrt(this->a * this->a - this->e * this->e);
     //cout << this->r1 << " " << e << " " << alpha << " " << beta << " " << a << " " << b<<endl;
-    reflect(beam_in, ds, di, chi, theta);
 }
 
 G_Cylinder_Ellipse::~G_Cylinder_Ellipse()
 {
     delete[] T, Nx, Ny, Nz;
+}
+
+void G_Cylinder_Ellipse::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+{
+    reflect(beam_in, ds, di, chi, theta);
+    cout << "G_Cylinder_Ellipse的run" << endl;
+
 }
 
 void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L, double* M, double* N)
@@ -39,11 +45,11 @@ void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L
     matrixMulti(this->X1, this->Y1, this->Z1, OS_0, X0, Y0, Z0, n);
     for (int i = 0; i < n; i++) {this->Z1[i] = this->Z1[i] -this->e;}
 
-    matrixMulti(X0, Y0, Z0, OS_0, L, M, N, n);
-    matrixMulti(this->L1, this->M1, this->N1, OS_1, X0, Y0, Z0, n);
-
+    matrixMulti(X0, Y0, Z0, OS_1, L, M, N, n);
+    matrixMulti(this->L1, this->M1, this->N1, OS_0, X0, Y0, Z0, n);
 
     delete[] X0, Y0, Z0, ZZ, OS_0, OS_1;
+    cout << "G_Cylinder_Ellipse的source_to_oe" << endl;
 }
 
 
@@ -69,7 +75,8 @@ void G_Cylinder_Ellipse::intersection(double* T)
         this->X2[i] = this->X1[i] + T[i]*this->L1[i];
         this->Y2[i] = this->Y1[i] + T[i]*this->M1[i];
         this->Z2[i] = this->Z1[i] + T[i]*this->N1[i];
-    }
+    } 
+    cout << "G_Cylinder_Ellipse的intersection" << endl;
 
     delete[] A,B,C;
 }
@@ -96,6 +103,7 @@ void G_Cylinder_Ellipse::normal(double *Nx, double *Ny, double *Nz)
         this->Ny[i] = Ny[i];
         this->Nz[i] = Nz[i];
     }    
+    cout << "G_Cylinder_Ellipse的normal" << endl;
 }
 
 void G_Cylinder_Ellipse::h_slope(double *h_slope, double *Y2)
@@ -107,4 +115,6 @@ void G_Cylinder_Ellipse::h_slope(double *h_slope, double *Y2)
         h_slope[i] = 0;
         // Y2[i] = h0[i] + Y2[i];
     }
+    cout << " G_Cylinder_Ellipse的h_slope" << endl;
+
 }

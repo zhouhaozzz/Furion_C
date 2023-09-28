@@ -69,4 +69,38 @@ namespace Furion_NS
 
 #endif
 
-//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
+    //ofstream fileout("data.dat");
+    //fileout << std::fixed;
+    //fileout << std::setprecision(15);
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    fileout << L2[i] << " ";
+    //}
+    //fileout << "\n";
+    //
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    fileout << M2[i] << " ";
+    //}
+    //fileout << "\n";
+    //
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    fileout << N2[i] << " ";
+    //}
+    //fileout << "\n";
+    //
+    //fileout.close();
+    //
+    //exit(0);
+
+//double sum = 0;
+//double sum1 = 0;
+//double sum2 = 0;
+//for (int i = 0; i < Furion::n; i++)
+//{
+//    sum = sum + fabs(T[i] + T1[i]);
+//    sum1 = sum1 + fabs(this->Phase[i]);
+//    sum2 = sum2 + fabs(this->Phase[i]);
+//}
+//cout << sum << " " << sum1 << " " << sum2 << endl;

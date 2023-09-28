@@ -22,13 +22,13 @@ void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2,
     double *t_Base_model = new double[Furion::n];
     matrixCross(L2, M2, N2, Nx, Ny, Nz, L1, M1, N1);
     matrixCross(t_Base_x, t_Base_y, t_Base_z, L2, M2, N2, Nx, Ny, Nz);
-    
+
     for (int i = 0; i < n; i++) 
     {
         t_Base_model[i] = sqrt(t_Base_x[i]*t_Base_x[i] + t_Base_y[i]*t_Base_y[i] + t_Base_z[i]*t_Base_z[i]);
         t_Base_x[i] = t_Base_x[i] / t_Base_model[i];
         t_Base_y[i] = t_Base_y[i] / t_Base_model[i];
-        t_Base_y[i] = t_Base_y[i] / t_Base_model[i];
+        t_Base_z[i] = t_Base_z[i] / t_Base_model[i];
     }
 
     double *sin_Alpha = new double[Furion::n];
