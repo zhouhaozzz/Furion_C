@@ -9,9 +9,12 @@ project(Furion)
 set(CMAKE_CXX_STANDARD 17)
 
 
-#include_directories(C:/software/C_library/eigen-3.4.0)
+include_directories(C:/software/C_library/eigen-3.4.0)
 #include_directories(C:/software/C_library/MPI/Include)
 include_directories(${CMAKE_SOURCE_DIR})
+
+# include 头文件
+#include_directories(C:/Program Files (x86)/Intel/oneAPI/mkl/2023.2.0/include)
 
 #find_package ( MPI )
 

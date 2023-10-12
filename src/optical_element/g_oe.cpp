@@ -46,14 +46,14 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
     normal(Nx, Ny, Nz);                                   //mormal Find reflection vector
 
     h_slope(hslope, this->Y2);      //Calculate the surface slope error    Find the slope of the corresponding position
-    
+
     this->theta2 = Pi / 2 - asin(sin(Pi / 2 - theta) - grating->n0 * grating->m * grating->lambda_G);
     this->Cff = cos(Pi / 2 - this->theta2) / cos(Pi / 2 - this->theta);
     
     f_r_v.Furion_reflect_Vector(this->cos_Alpha, L2, M2, N2, this->L1, this->M1, this->N1, Nx, Ny, Nz, grating->lambda_G, grating->m, grating->n0, grating->b, this->Z2, hslope, this->Cff);
     
     oe_to_image(X3, Y3, Z3, L3, M3, N3, this->X2, this->Y2, this->Z2, di, L2, M2, N2);
-    
+
     for (int i = 0; i < Furion::n; i++)
     {
         T1[i] = -Z3[i] / N3[i];
@@ -77,33 +77,50 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
 void G_Oe::source_to_oe(double *X, double *Y, double ds, double *L, double *M, double *N)
 {
     int n = Furion::n;
-    double *OS_0 = new double[9];  
+    double* OS = new double[9];
+    double *OS_0 = new double[9];
     double *OS_1 = new double[9]; 
     f_rx.furion_rotx(theta, OS_0);
     f_rz.furion_rotz(chi, OS_1);
 
-    double *X0 = new double[Furion::n];
-    double *Y0 = new double[Furion::n];
-    double *Z0 = new double[Furion::n];
-    double *Z = new double[Furion::n];
-    for (int i = 0; i < n; i++) {Z[i] = -ds;}
-    matrixMulti(X0, Y0, Z0, OS_1, X, Y, Z, n);
-    matrixMulti(this->X1, this->Y1, this->Z1, OS_0, X0, Y0, Z0, n);
+    double *Z = new double[1];
+    Z[0] = -ds;
+    matrixMulti33(OS, OS_0, OS_1);
+    matrixMulti0(this->X1, this->Y1, this->Z1, OS, X, Y, Z, n);
 
-    matrixMulti(X0, Y0, Z0, OS_1, L, M, N, n);
-    matrixMulti(this->L1, this->M1, this->N1, OS_0, X0, Y0, Z0, n);
+    matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
 
-    delete[] X0, Y0, Z0, Z, OS_0, OS_1;
+    delete[] Z, OS_0, OS_1;
     cout << " G_OeµÄsource_to_oe" << endl;
 }
 
-void G_Oe::matrixMulti(double *L2, double *M2, double *N2, double *matrix, double *L, double *M, double *N, int n)  //XYZ:1*3; LMN:1*n
+void G_Oe::matrixMulti(double* L2, double* M2, double* N2, double* matrix, double* L, double* M, double* N, double dx, int n)  //XYZ:1*3; LMN:1*n
 {
-    for (int i = 0; i < n; i++) 
+    for (int i = 0; i < n; i++)
     {
-        L2[i] = matrix[0]*L[i] + matrix[1]*M[i] + matrix[2]*N[i];
-        M2[i] = matrix[3]*L[i] + matrix[4]*M[i] + matrix[5]*N[i];
-        N2[i] = matrix[6]*L[i] + matrix[7]*M[i] + matrix[8]*N[i];
+        L2[i] = matrix[0] * L[i] + matrix[1] * M[i] + matrix[2] * N[i];
+        M2[i] = matrix[3] * L[i] + matrix[4] * M[i] + matrix[5] * N[i];
+        N2[i] = matrix[6] * L[i] + matrix[7] * M[i] + matrix[8] * N[i] + dx;
+    }
+}
+
+void G_Oe::matrixMulti33(double* matrix, double* matrix1, double* matrix2)  //XYZ:1*3; LMN:1*n
+{
+    for (int i = 0; i < 3; i++)
+    {
+        matrix[i] = matrix1[0] * matrix2[i] + matrix1[1] * matrix2[i + 3] + matrix1[2] * matrix2[i + 6];
+        matrix[i + 3] = matrix1[3] * matrix2[i] + matrix1[4] * matrix2[i + 3] + matrix1[5] * matrix2[i + 6];
+        matrix[i + 6] = matrix1[6] * matrix2[i] + matrix1[7] * matrix2[i + 3] + matrix1[8] * matrix2[i + 6];
+    }
+}
+
+void G_Oe::matrixMulti0(double* L2, double* M2, double* N2, double* matrix, double* L, double* M, double* N, int n)  //XYZ:1*3; LMN:1*n
+{
+    for (int i = 0; i < n; i++)
+    {
+        L2[i] = matrix[0] * L[i] + matrix[1] * M[i] + matrix[2] * N[0];
+        M2[i] = matrix[3] * L[i] + matrix[4] * M[i] + matrix[5] * N[0];
+        N2[i] = matrix[6] * L[i] + matrix[7] * M[i] + matrix[8] * N[0];
     }
 }
 
@@ -171,21 +188,20 @@ void G_Oe::oe_to_image(double *X3, double *Y3, double *Z3, double *L3, double *M
 {
     int n = Furion::n;
 
-    double *OS_0 = new double[9];  
+    double* OS = new double[9];
+    double *OS_0 = new double[9];
     double *OS_1 = new double[9]; 
-    
-    double *X0 = new double[Furion::n];
-    double *Y0 = new double[Furion::n];
-    double *Z0 = new double[Furion::n];
 
     f_rx.furion_rotx(this->theta2, OS_0);
-    matrixMulti(X3, Y3, Z3, OS_0, X2, Y2, Z2, n);
-    for (int i = 0; i < n; i++) {Z3[i] = Z3[i] -di;}
+    matrixMulti(X3, Y3, Z3, OS_0, X2, Y2, Z2, -di, n);
+    //for (int i = 0; i < n; i++) {Z3[i] = Z3[i] -di;}
 
     f_rz.furion_rotz(-1 * this->chi, OS_0);
     f_rx.furion_rotx(this->theta2, OS_1);
-    matrixMulti(X0, Y0, Z0, OS_1, L2, M2, N2, n);
-    matrixMulti(L3, M3, N3, OS_0, X0, Y0, Z0, n);
+    matrixMulti33(OS, OS_0, OS_1);
+    matrixMulti(L3, M3, N3, OS, L2, M2, N2, 0, n);
 
-    delete[] X0, Y0, Z0, OS_0, OS_1;
+    cout << " G_OeµÄoe_to_image" << endl;
+
+    delete[] OS, OS_0, OS_1;
 }

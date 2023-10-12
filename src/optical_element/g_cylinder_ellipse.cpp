@@ -12,6 +12,7 @@ G_Cylinder_Ellipse::G_Cylinder_Ellipse(G_Beam* beam_in, double ds, double di, do
     this->a = (r1 + r2) / 2;
     this->b = sqrt(this->a * this->a - this->e * this->e);
     //cout << this->r1 << " " << e << " " << alpha << " " << beta << " " << a << " " << b<<endl;
+    cout << "G_Cylinder_Ellipse的初始化" << endl;
 }
 
 G_Cylinder_Ellipse::~G_Cylinder_Ellipse()
@@ -21,17 +22,16 @@ G_Cylinder_Ellipse::~G_Cylinder_Ellipse()
 
 void G_Cylinder_Ellipse::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
 {
-    reflect(beam_in, ds, di, chi, theta);
     cout << "G_Cylinder_Ellipse的run" << endl;
-
+    reflect(beam_in, ds, di, chi, theta);
 }
 
 void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L, double* M, double* N)
 {
-
     int n = Furion::n;
 
-    double *OS_0 = new double[9];  
+    double* OS = new double[9];
+    double *OS_0 = new double[9];
     double *OS_1 = new double[9]; 
     f_rx.furion_rotx(this->alpha, OS_0);
     f_rz.furion_rotz(this->chi, OS_1);
@@ -39,16 +39,16 @@ void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L
     double *X0 = new double[Furion::n];
     double *Y0 = new double[Furion::n];
     double *Z0 = new double[Furion::n];
-    double *ZZ = new double[Furion::n];
-    double z = this->r1 - ds; for (int i = 0; i < n; i++) {ZZ[i] = z;}
-    matrixMulti(X0, Y0, Z0, OS_1, X, Y, ZZ, n);
-    matrixMulti(this->X1, this->Y1, this->Z1, OS_0, X0, Y0, Z0, n);
-    for (int i = 0; i < n; i++) {this->Z1[i] = this->Z1[i] -this->e;}
+    double *Z = new double[1];
+    Z[0] = this->r1 - ds;
 
-    matrixMulti(X0, Y0, Z0, OS_1, L, M, N, n);
-    matrixMulti(this->L1, this->M1, this->N1, OS_0, X0, Y0, Z0, n);
+    matrixMulti0(X0, Y0, Z0, OS_1, X, Y, Z, n);
+    matrixMulti(this->X1, this->Y1, this->Z1, OS_0, X0, Y0, Z0, -this->e, n);
+    
+    matrixMulti33(OS, OS_0, OS_1);
+    matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
 
-    delete[] X0, Y0, Z0, ZZ, OS_0, OS_1;
+    delete[] X0, Y0, Z0, Z, OS, OS_0, OS_1;
     cout << "G_Cylinder_Ellipse的source_to_oe" << endl;
 }
 

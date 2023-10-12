@@ -5,7 +5,7 @@ using namespace Furion_NS;
 G_Beam::G_Beam(double* XX, double* YY, double* phi, double* psi, double lambda) :
     XX(XX), YY(YY), phi(phi), psi(psi), n(Furion::n), lambda(lambda)
 {
-
+    cout << "G_BeamµÄ³õÊ¼»¯" << endl;
 }
 
 G_Beam::~G_Beam()

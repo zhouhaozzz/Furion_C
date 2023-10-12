@@ -59,7 +59,9 @@ namespace Furion_NS
         
         void reflect(G_Beam* beam_in, double ds, double di, double chi, double theta);
         virtual void source_to_oe(double *X, double *Y, double ds, double *L, double *M, double *N);
-        void matrixMulti(double *L2, double *M2, double *N2, double *matrix, double *L, double *M, double *N, int n);  //XYZ:1*3; LMN:1*n
+        void matrixMulti33(double* matrix, double* matrix1, double* matrix2);  //XYZ:1*3; LMN:1*n
+        void matrixMulti(double* L2, double* M2, double* N2, double* matrix, double* L, double* M, double* N, double dx, int n);  //XYZ:1*3; LMN:1*n
+        void matrixMulti0(double *L2, double *M2, double *N2, double *matrix, double *L, double *M, double *N, int n);  //XYZ:1*3; LMN:1*n
         virtual void intersection(double *T);
         virtual void normal(double *Nx, double *Ny, double *Nz);
         virtual void h_slope(double *h_slope, double *Y2);
@@ -69,30 +71,7 @@ namespace Furion_NS
 
 #endif
 
-    //ofstream fileout("data.dat");
-    //fileout << std::fixed;
-    //fileout << std::setprecision(15);
-    //for (int i = 0; i < Furion::n; i++)
-    //{
-    //    fileout << L2[i] << " ";
-    //}
-    //fileout << "\n";
-    //
-    //for (int i = 0; i < Furion::n; i++)
-    //{
-    //    fileout << M2[i] << " ";
-    //}
-    //fileout << "\n";
-    //
-    //for (int i = 0; i < Furion::n; i++)
-    //{
-    //    fileout << N2[i] << " ";
-    //}
-    //fileout << "\n";
-    //
-    //fileout.close();
-    //
-    //exit(0);
+
 
 //double sum = 0;
 //double sum1 = 0;

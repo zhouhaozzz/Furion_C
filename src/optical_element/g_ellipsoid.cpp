@@ -7,7 +7,6 @@ G_Ellipsoid::G_Ellipsoid(G_Beam* beam_in, double ds, double di, double chi, doub
 {
     cout << "³õÊ¼»¯G_Ellipsoid" << endl;
     run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
-    
 }
 
 G_Ellipsoid::~G_Ellipsoid()

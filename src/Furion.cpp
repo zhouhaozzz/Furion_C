@@ -42,11 +42,11 @@ Furion::Furion(int rank1, int size1)
 	{
 		if (i % size1 == rank1)
 		{
-			//g_Furion_cylinder_ellipse_Mirror = new G_Furion_Cylinder_Ellipse_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			//g_Furion_cylinder_ellipse_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			g_Furion_cylinder_ellipse_Mirror = new G_Furion_Cylinder_Ellipse_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			g_Furion_cylinder_ellipse_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			
-			g_Furion_ellipsoid_Mirror = new G_Furion_ellipsoid_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			g_Furion_ellipsoid_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			//g_Furion_ellipsoid_Mirror = new G_Furion_ellipsoid_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			//g_Furion_ellipsoid_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			//g_Furion_ellipsoid_Mirror->set_center(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 		}
 	}
@@ -54,11 +54,11 @@ Furion::Furion(int rank1, int size1)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	for (int i = 0; i < size1; i++)
 	{
-		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(98, rank1);}
-		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_ellipsoid_Mirror->beam_out; b2->plot_sigma(98, rank1);}
+		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(0, rank1);}
+		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_ellipsoid_Mirror->beam_out; b2->plot_sigma(98, rank1);}
 	}
 
-	if (rank1 == 0) 
+	if (1) 
 	{
 		std::string inputString = std::to_string(size1);
 		std::string command = ("python python_plot/Furion_plot4_6sigma.py " + inputString);

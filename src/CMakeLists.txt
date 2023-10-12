@@ -39,6 +39,7 @@ target_include_directories(Furion PRIVATE
                            ${SURFACE_H}
                            ${XOP_H}
                            ${SRC_H}
+                           ${catkin_INCLUDE_DIRS}
                            )
 
 install(TARGETS Furion RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin)

@@ -1,6 +1,7 @@
 #include "Furion.h"
 #include <chrono>
 // #include <mpi.h>
+//#include <Eigen/Dense>
 
 using namespace Furion_NS;
 
@@ -17,8 +18,6 @@ int main(int argc, char* argv[])
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     auto furion = new Furion(rank, size);
-
-    //delete furion;
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);

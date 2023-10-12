@@ -5,6 +5,7 @@ using namespace Furion_NS;
 
 G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1) : beam_out(XX, YY, phi, psi, lambda)
 {
+    cout << "G_SourceµÄ³õÊ¼»¯" << endl;
     normrnd(this->XX, 0, sigma_beamsize, n, 1, rank1);// Normal random number
     normrnd(this->YY, 0, sigma_beamsize, n, 2, rank1);
     normrnd(this->phi, 0, sigma_divergence, n, 3, rank1);
