@@ -35,11 +35,13 @@ namespace Furion_NS
         class No_Surfe* no_surfe;
         class G_Furion_Cylinder_Ellipse_Mirror* g_Furion_cylinder_ellipse_Mirror;
         class G_Furion_ellipsoid_Mirror* g_Furion_ellipsoid_Mirror;
+        class G_Furion_Hole* g_Furion_hole;
+        class G_Furion_Paraboid_Collimation_Mirror* g_Furion_paraboid_collimation_Mirror;
 
         Furion(int rank1, int size1);
         ~Furion();
 
-        void init();
+        //void init();
 
         size_t i = 0;
         const static int n = 100000;

@@ -4,6 +4,8 @@
 #include "g_beam.h"
 #include "g_Furion_cylinder_ellipse_Mirror.h"
 #include "g_Furion_ellipsoid_Mirror.h"
+#include "g_Furion_paraboid_collimation_Mirror.h"
+#include "g_furion_hole.h"
 #include "no_surfe.h"
 
 #define Pi 3.1415926536
@@ -37,25 +39,32 @@ Furion::Furion(int rank1, int size1)
 
 	g_source = new G_Source(psigmax, vsigmax, Furion::n, lambda, rank1);
 	G_Beam b1 = g_source->beam_out.translate(196);
+	//G_Beam b1 = g_source->beam_out;
 
 	for (int i = 0; i < size1; i++)
 	{
 		if (i % size1 == rank1)
 		{
-			g_Furion_cylinder_ellipse_Mirror = new G_Furion_Cylinder_Ellipse_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			g_Furion_cylinder_ellipse_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			//g_Furion_cylinder_ellipse_Mirror = new G_Furion_Cylinder_Ellipse_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			//g_Furion_cylinder_ellipse_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			
 			//g_Furion_ellipsoid_Mirror = new G_Furion_ellipsoid_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			//g_Furion_ellipsoid_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			//g_Furion_ellipsoid_Mirror->set_center(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+
+			//g_Furion_hole = new G_Furion_Hole(&b1, 0, 0, 25e-6);
+			
+			g_Furion_paraboid_collimation_Mirror = new G_Furion_Paraboid_Collimation_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			g_Furion_paraboid_collimation_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 		}
 	}
 
 	// MPI_Barrier(MPI_COMM_WORLD);
 	for (int i = 0; i < size1; i++)
 	{
-		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(0, rank1);}
+		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(0, rank1);}
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_ellipsoid_Mirror->beam_out; b2->plot_sigma(98, rank1);}
+		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_hole->beam_out; b2->plot_sigma(0, rank1); }
+		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_paraboid_collimation_Mirror->beam_out; b2->plot_sigma(0, rank1);}
 	}
 
 	if (1) 
