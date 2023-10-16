@@ -7,6 +7,7 @@ G_Furion_Paraboid_Collimation_Mirror::G_Furion_Paraboid_Collimation_Mirror(G_Bea
     : G_Furion_Cyliner_Parabolic_Collimation_Mirror(beam_in, ds, di, chi, theta, surface, r1, r2, grating)//, center(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
 {
     cout << "G_Furion_Paraboid_Collimation_Mirror 初始化" << endl;
+    G_Furion_Cyliner_Parabolic_Collimation_Mirror::run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
 }
 
 G_Furion_Paraboid_Collimation_Mirror::~G_Furion_Paraboid_Collimation_Mirror()
@@ -16,7 +17,7 @@ G_Furion_Paraboid_Collimation_Mirror::~G_Furion_Paraboid_Collimation_Mirror()
 
 void G_Furion_Paraboid_Collimation_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
 {
-    cout << "G_Furion_Paraboid_Collimation_Mirror::run的run" << endl;
+    cout << "G_Furion_Paraboid_Collimation_Mirror::ru的run" << endl;
     set_center(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
 }
 

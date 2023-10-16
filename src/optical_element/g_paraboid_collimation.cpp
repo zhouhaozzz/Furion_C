@@ -6,6 +6,7 @@ G_Paraboid_Collimation::G_Paraboid_Collimation(G_Beam* beam_in, double ds, doubl
     : G_Cyliner_Parabolic_Collimation(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
 {
     cout << "G_Paraboid_Collimation的初始化" << endl;
+    G_Cyliner_Parabolic_Collimation::run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
 }
 
 G_Paraboid_Collimation::~G_Paraboid_Collimation()
@@ -34,7 +35,7 @@ void G_Paraboid_Collimation::intersection(double* T)
         this->Z2[i] = this->Z1[i] + T[i]*this->N1[i];
     } 
     cout << "G_Paraboid_Collimation的intersection" << endl;
-
+    
     delete[] A,B,C;
 }
 
@@ -56,5 +57,4 @@ void G_Paraboid_Collimation::normal(double *Nx, double *Ny, double *Nz)
         this->Ny[i] = Ny[i];
         this->Nz[i] = Nz[i];
     }    
-    cout << "G_Paraboid_Collimation的normal" << endl;
 }

@@ -28,7 +28,7 @@ void G_Cyliner_Parabolic_Collimation::source_to_oe(double* X, double* Y, double 
     double* OS = new double[9];
     double* OS_0 = new double[9];
     double* OS_1 = new double[9];
-    f_rx.furion_rotx(this->theta, OS_0);
+    f_rx.furion_rotx(2*this->theta, OS_0);
     f_rz.furion_rotz(this->chi, OS_1);
 
     double* X0 = new double[Furion::n];
@@ -42,7 +42,7 @@ void G_Cyliner_Parabolic_Collimation::source_to_oe(double* X, double* Y, double 
 
     matrixMulti33(OS, OS_0, OS_1);
     matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
-
+    
     delete[] X0, Y0, Z0, Z, OS, OS_0, OS_1;
     cout << "G_Cyliner_Parabolic_CollimationµÄsource_to_oe" << endl;
 }

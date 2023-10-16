@@ -55,11 +55,8 @@ Furion::Furion(int rank1, int size1)
 
 			//g_Furion_hole = new G_Furion_Hole(&b1, 0, 0, 25e-6);
 			
-			//g_Furion_paraboid_collimation_Mirror = new G_Furion_Paraboid_Collimation_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			//g_Furion_paraboid_collimation_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			g_Furion_paraboid_collimation_Mirror = new G_Furion_Paraboid_Collimation_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 
-			g_Furion_paraboid_focus_Mirror = new G_Furion_Paraboid_Focus_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			//g_Furion_paraboid_focus_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			//g_Furion_paraboid_focus_Mirror = new G_Furion_Paraboid_Focus_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 
 
@@ -72,8 +69,8 @@ Furion::Furion(int rank1, int size1)
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(0, rank1);}
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_ellipsoid_Mirror->beam_out; b2->plot_sigma(98, rank1);}
 		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_hole->beam_out; b2->plot_sigma(0, rank1); }
-		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_paraboid_collimation_Mirror->beam_out; b2->plot_sigma(0, rank1); }
-		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_paraboid_focus_Mirror->beam_out; b2->plot_sigma(185, rank1);}
+		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_paraboid_collimation_Mirror->beam_out; b2->plot_sigma(98, rank1); }
+		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_paraboid_focus_Mirror->beam_out; b2->plot_sigma(185, rank1);}
 	}
 
 	if (1) 
@@ -98,11 +95,29 @@ Furion::~Furion()
 
 }
 
-// double sum = 0;
-// double sum1 = 0;
-//     for (int i = 0; i < Furion::n; i++)
-//     {
-//         sum = sum + fabs(this->Phase[i] );
-//         sum1 = sum1 + fabs(this->X_[i] );
-//     }
-//         cout << sum << " " << sum1 <<endl;
+    //ofstream fileout("data.dat");
+    //fileout << std::fixed;
+    //fileout << std::setprecision(15);
+
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    fileout << Nx[i] << " ";
+    //}
+    //fileout << "\n";
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    fileout << Ny[i] << " ";
+    //}
+    //fileout << "\n";
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    fileout << Nz[i] << " ";
+    //}
+    //fileout << "\n";
+    //for (int i = 0; i < Furion::n; i++)
+    //{
+    //    //fileout << Psi[i] << " ";
+    //}
+    //fileout << "\n";
+    //fileout.close();
+    //exit(0);

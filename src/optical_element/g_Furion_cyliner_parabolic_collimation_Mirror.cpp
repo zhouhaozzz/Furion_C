@@ -27,7 +27,6 @@ void G_Furion_Cyliner_Parabolic_Collimation_Mirror::intersection(double* T)
     for (int i = 0; i < n; i++) {T[i] = center->T[i];}
     cneter_to_oe_p(this->X2, this->Y2, this->Z2, center->X2, center->Y2, center->Z2);
     cout << "G_Furion_Cyliner_Parabolic_Collimation_MirrorµÄintersection" << endl;
-
 }
 
 void G_Furion_Cyliner_Parabolic_Collimation_Mirror::normal(double *Nx, double *Ny, double *Nz)
