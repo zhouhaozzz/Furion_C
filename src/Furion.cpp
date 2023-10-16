@@ -69,7 +69,7 @@ Furion::Furion(int rank1, int size1)
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cylinder_ellipse_Mirror->beam_out; b2->plot_sigma(0, rank1);}
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_ellipsoid_Mirror->beam_out; b2->plot_sigma(98, rank1);}
 		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_hole->beam_out; b2->plot_sigma(0, rank1); }
-		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_paraboid_collimation_Mirror->beam_out; b2->plot_sigma(98, rank1); }
+		if (i % size1 == rank1) { G_Beam* b2 = g_Furion_paraboid_collimation_Mirror->beam_out; b2->plot_sigma(98, rank1); }
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_paraboid_focus_Mirror->beam_out; b2->plot_sigma(185, rank1);}
 	}
 
