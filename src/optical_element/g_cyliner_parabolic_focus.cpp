@@ -73,7 +73,7 @@ void G_Cyliner_Parabolic_Focus::intersection(double* T)
         }
         else
         {
-            T[i] = sqrt(-B[i] + (B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
+            T[i] = (-B[i] + sqrt(B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
         }
         this->T[i] = T[i];
 
@@ -82,7 +82,7 @@ void G_Cyliner_Parabolic_Focus::intersection(double* T)
         this->Z2[i] = this->Z1[i] + T[i] * this->N1[i];
     }
     cout << "G_Cyliner_Parabolic_FocusµÄintersection" << endl;
-
+    
     delete[] A, B, C;
 }
 

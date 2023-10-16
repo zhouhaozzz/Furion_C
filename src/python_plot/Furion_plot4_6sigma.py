@@ -18,12 +18,13 @@ plt.rc('font', family="Times New Roman")
 folder_path = os.getcwd()
 file_prefix = folder_path + "/data/Furion_plot_sigma_"
 
-file_count = 100
-try:
-    file_count = int(sys.argv[1])
-except ValueError:
-    print("Invalid integer provided")
-    sys.exit(1)
+file_count = 1
+#file_count = 100
+#try:
+#    file_count = int(sys.argv[1])
+#except ValueError:
+#    print("Invalid integer provided")
+#    sys.exit(1)
 
 X=[]
 Y=[]

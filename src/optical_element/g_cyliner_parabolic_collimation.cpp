@@ -59,8 +59,8 @@ void G_Cyliner_Parabolic_Collimation::intersection(double* T)
     for (int i = 0; i < n; i++)
     {
         A[i] = this->M1[i] * this->M1[i];
-        B[i] = 2 * (this->N1[i] * this->p + this->M1[i] * this->Y1[i]);
-        C[i] = this->Y1[i] * this->Y1[i] + 2 * this->p * this->Z1[i];
+        B[i] = 2 * (-this->N1[i] * this->p + this->M1[i] * this->Y1[i]);
+        C[i] = this->Y1[i] * this->Y1[i] - 2 * this->p * this->Z1[i];
         T[i] = (-B[i] + sqrt(B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
         this->T[i] = T[i];
 
@@ -84,7 +84,7 @@ void G_Cyliner_Parabolic_Collimation::normal(double* Nx, double* Ny, double* Nz)
     {
         data = sqrt(this->Y2[i] * this->Y2[i] + p2);
         Ny[i] = -(this->Y2[i]) / data;
-        Nz[i] = -(this->p) / data;
+        Nz[i] = (this->p) / data;
         Nx[i] = 0;
 
         this->Nx[i] = Nx[i];
