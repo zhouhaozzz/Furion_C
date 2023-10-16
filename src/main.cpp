@@ -19,6 +19,11 @@ int main(int argc, char* argv[])
 
     auto furion = new Furion(rank, size);
 
+    //double* h0 = new double[1e8];
+    //delete[] h0;
+    //double* h_U = (double*)malloc(1e8 * sizeof(double));
+    //double
+
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     std::cout << "Execution time: " << duration.count() / 1e6 << " seconds" << std::endl;
