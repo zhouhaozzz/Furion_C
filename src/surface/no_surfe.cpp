@@ -2,7 +2,7 @@
 
 using namespace Furion_NS;
 
-No_Surfe::No_Surfe() : meri_X(nullptr), sag_Y(nullptr), V(nullptr), adress(nullptr)
+No_Surfe::No_Surfe()// : meri_X(nullptr), sag_Y(nullptr), V(nullptr)
 {
 
 }

@@ -10,6 +10,7 @@
 #include "g_Furion_cyliner_parabolic_collimation_Mirror.h"
 #include "g_furion_hole.h"
 #include "no_surfe.h"
+#include "surfefile_from_shadow.h"
 
 #define Pi 3.1415926536
 #define E  2.71828
@@ -22,6 +23,16 @@ Furion::Furion(int rank1, int size1)
 	std::cout << std::setprecision(15);
 
 	no_surfe = new No_Surfe();
+	Surfefile_From_Shadow* surfM1 = new Surfefile_From_Shadow("G_shadow.dat");
+	Surfefile_From_Shadow* surfM5 = new Surfefile_From_Shadow("M5_shadow03.dat");
+	Surfefile_From_Shadow* surG = new Surfefile_From_Shadow("G_shadow03.dat");
+	for (const std::vector<double>& row : *(surG->V)) {
+		for (double value : row) {
+			std::cout << value << " ";
+		}
+		std::cout << std::endl;
+	}
+
 	double wavelength = 1e-8;
 	int n = Furion::n;
 	grating = new Grating(230e3, 2.0984e-2, 0, wavelength);
@@ -48,7 +59,7 @@ Furion::Furion(int rank1, int size1)
 	{
 		if (i % size1 == rank1)
 		{
-			//g_Furion_cylinder_ellipse_Mirror = new G_Furion_Cylinder_Ellipse_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			g_Furion_cylinder_ellipse_Mirror = new G_Furion_Cylinder_Ellipse_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			//g_Furion_cylinder_ellipse_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			
 			//g_Furion_ellipsoid_Mirror = new G_Furion_ellipsoid_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
@@ -63,8 +74,8 @@ Furion::Furion(int rank1, int size1)
 			//g_Furion_cyliner_parabolic_collimation_Mirror = new G_Furion_Cyliner_Parabolic_Collimation_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 			//g_Furion_cyliner_parabolic_collimation_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 
-			g_Furion_cyliner_parabolic_focus_Mirror = new G_Furion_Cyliner_Parabolic_Focus_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
-			g_Furion_cyliner_parabolic_focus_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			//g_Furion_cyliner_parabolic_focus_Mirror = new G_Furion_Cyliner_Parabolic_Focus_Mirror(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
+			//g_Furion_cyliner_parabolic_focus_Mirror->run(&b1, 0, 0, 0, 7e-3, no_surfe, 196, 98, grating);
 
 		}
 	}
@@ -78,10 +89,10 @@ Furion::Furion(int rank1, int size1)
 		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_paraboid_collimation_Mirror->beam_out; b2->plot_sigma(98, rank1); }
 		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_paraboid_focus_Mirror->beam_out; b2->plot_sigma(185, rank1);}
 		//if (i % size1 == rank1) { G_Beam* b2 = g_Furion_cyliner_parabolic_collimation_Mirror->beam_out; b2->plot_sigma(98, rank1); }
-		if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cyliner_parabolic_focus_Mirror->beam_out; b2->plot_sigma(98, rank1);}
+		//if (i % size1 == rank1) {G_Beam* b2 = g_Furion_cyliner_parabolic_focus_Mirror->beam_out; b2->plot_sigma(98, rank1);}
 	}
 
-	if (1) 
+	if (0) 
 	{
 		std::string inputString = std::to_string(size1);
 		std::string command = ("python python_plot/Furion_plot4_6sigma.py " + inputString);
