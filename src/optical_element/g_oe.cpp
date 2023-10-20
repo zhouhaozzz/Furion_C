@@ -148,7 +148,7 @@ void G_Oe::normal(double *Nx, double *Ny, double *Nz)
     for (int i = 0; i < n; i++) 
     {
         Nx[i] = 0;
-        Ny[i] = 0;
+        Ny[i] = 1;
         Nz[i] = 0;
     }
 
