@@ -12,16 +12,16 @@ Furion_Reflect_Vector::~Furion_Reflect_Vector()
 
 }
 
-void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2, double *M2, double *N2, double *L1, double *M1, double *N1, double *Nx, double *Ny, double *Nz, double lambda, double m, double n0, double b, double *Z2, double *h_slope, double Cff, int n)
+void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2, double *M2, double *N2, double *L1, double *M1, double *N1, double *Nx, double *Ny, double *Nz, double lambda, double m, double n0, double b, double *Z2, double *h_slope, double Cff)
 {
-    //int n = Furion::n;
+    int n = Furion::n;
     
-    double *t_Base_x = new double[n];
-    double *t_Base_y = new double[n];
-    double *t_Base_z = new double[n];
-    double *t_Base_model = new double[n];
-    matrixCross(L2, M2, N2, Nx, Ny, Nz, L1, M1, N1, n);
-    matrixCross(t_Base_x, t_Base_y, t_Base_z, L2, M2, N2, Nx, Ny, Nz, n);
+    double *t_Base_x = new double[Furion::n];
+    double *t_Base_y = new double[Furion::n];
+    double *t_Base_z = new double[Furion::n];
+    double *t_Base_model = new double[Furion::n];
+    matrixCross(L2, M2, N2, Nx, Ny, Nz, L1, M1, N1);
+    matrixCross(t_Base_x, t_Base_y, t_Base_z, L2, M2, N2, Nx, Ny, Nz);
 
     for (int i = 0; i < n; i++) 
     {
@@ -31,11 +31,11 @@ void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2,
         t_Base_z[i] = t_Base_z[i] / t_Base_model[i];
     }
 
-    double *sin_Alpha = new double[n];
+    double *sin_Alpha = new double[Furion::n];
     // double *N_lambda = new double[Furion::n];
-    double *sin_Beta = new double[n];
+    double *sin_Beta = new double[Furion::n];
     // double *Beta = new double[Furion::n];
-    double *cos_Beta = new double[n];
+    double *cos_Beta = new double[Furion::n];
 
     for (int i = 0; i < n; i++) 
     {
@@ -43,7 +43,7 @@ void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2,
         sin_Alpha[i] = sqrt(1 - cos_Alpha[i]*cos_Alpha[i]);
         // N_lambda[i] = n0*(1 + b*Z2[i]);
         sin_Beta[i] = sin_Alpha[i] - m*(n0*(1 + b*Z2[i]))*lambda - (1+Cff)*h_slope[i]*cos_Alpha[i]; 
-         //Beta[i] = asin(sin_Beta[i]);
+        // Beta[i] = asin(sin_Beta[i]);
         cos_Beta[i] = sqrt(1-sin_Beta[i]*sin_Beta[i]);
         L2[i] = cos_Beta[i]*Nx[i] + sin_Beta[i]* t_Base_x[i];
         M2[i] = cos_Beta[i]*Ny[i] + sin_Beta[i]* t_Base_y[i];
@@ -54,9 +54,9 @@ void Furion_Reflect_Vector::Furion_reflect_Vector(double *cos_Alpha, double *L2,
     delete[] sin_Alpha, sin_Beta, cos_Beta;
 }
 
-void Furion_Reflect_Vector::matrixCross(double *L2, double *M2, double *N2, double *Nx, double *Ny, double *Nz, double *L1, double *M1, double *N1, int n)  //There is no matrix cross function in the Eigen library, and it can only be implemented by custom
+void Furion_Reflect_Vector::matrixCross(double *L2, double *M2, double *N2, double *Nx, double *Ny, double *Nz, double *L1, double *M1, double *N1)  //There is no matrix cross function in the Eigen library, and it can only be implemented by custom
 {
-    //int n = Furion::n;
+    int n = Furion::n;
     
     for (int i = 0; i < n; i++) 
     {

@@ -2,13 +2,13 @@
 
 using namespace Furion_NS;
 
-G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, double r)
+G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, double r, int* N)
     //: beam_out(beam_in)
 {
     cout << "³õÊ¼»¯G_Furion_Hole" << endl;
     int n = beam_in->n;
 
-    beam_out = new G_Beam(beam_in->XX, beam_in->YY, beam_in->phi, beam_in->psi, beam_in->lambda, n);
+    beam_out = new G_Beam(beam_in->XX, beam_in->YY, beam_in->phi, beam_in->psi, beam_in->lambda);
     
     int Count = 0;
     for (int i = 0; i < n; i++)
@@ -22,9 +22,7 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
             Count = Count + 1;
         }
     }
-    beam_out->n = Count;
-    beam_in->n = Count;
-    //cout << Count << endl;
+    cout << Count << endl;
 
     for (int i = Count; i < n; i++)
     {
@@ -33,10 +31,16 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
         beam_out->phi[i] = 0;
         beam_out->psi[i] = 0;
     }
+
+    N[0] = Count;
 }
 
 G_Furion_Hole::~G_Furion_Hole()
 {
-    //delete ct;
+//if (beam_out != NULL)
+   //{
+       // delete beam_out;
+       // beam_out = NULL;
+    //}
 }
 

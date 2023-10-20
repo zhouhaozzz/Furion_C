@@ -34,7 +34,7 @@ void G_Cyliner_Parabolic_Focus::matrixMulti_GCPF(double* L2, double* M2, double*
 
 void G_Cyliner_Parabolic_Focus::source_to_oe(double* X, double* Y, double ds, double* L, double* M, double* N)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     double* OS = new double[9];
     f_rz.furion_rotz(this->chi, OS);
@@ -73,7 +73,7 @@ void G_Cyliner_Parabolic_Focus::intersection(double* T)
         }
         else
         {
-            T[i] = (-B[i] + sqrt(B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
+            T[i] = sqrt(-B[i] + (B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
         }
         this->T[i] = T[i];
 
@@ -82,13 +82,13 @@ void G_Cyliner_Parabolic_Focus::intersection(double* T)
         this->Z2[i] = this->Z1[i] + T[i] * this->N1[i];
     }
     cout << "G_Cyliner_Parabolic_FocusµÄintersection" << endl;
-    
+
     delete[] A, B, C;
 }
 
 void G_Cyliner_Parabolic_Focus::normal(double* Nx, double* Ny, double* Nz)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     double data;
     double p2 = this->p * this->p;
@@ -109,7 +109,7 @@ void G_Cyliner_Parabolic_Focus::normal(double* Nx, double* Ny, double* Nz)
 
 void G_Cyliner_Parabolic_Focus::h_slope(double* h_slope, double* Y2)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     for (int i = 0; i < n; i++)
     {

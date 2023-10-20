@@ -1,22 +1,27 @@
 #include "g_source.h"
 #include "g_beam.h"
 #include <chrono>
+
 using namespace Furion_NS;
 
-G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1) : beam_out(XX, YY, phi, psi, lambda, n)
+G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1)//: beam_out(XX, YY, phi, psi, lambda)
 {
     cout << "G_Source的初始化" << endl;
     normrnd(this->XX, 0, sigma_beamsize, n, 1, rank1);// Normal random number
     normrnd(this->YY, 0, sigma_beamsize, n, 2, rank1);
     normrnd(this->phi, 0, sigma_divergence, n, 3, rank1);
     normrnd(this->psi, 0, sigma_divergence, n, 4, rank1);
+    //beam_out.lambda = lambda;
+    //beam_out.n = n;
+    beam_out =new G_Beam (this->XX, this->YY, this->phi, this->psi, lambda);
+    //delete beam_out;
+    //cout << sizeof(beam_out) << endl;
 
-    beam_out = G_Beam(this->XX, this->YY, this->phi, this->psi, lambda, n);
 }
 
 G_Source::~G_Source()
 {
-    delete XX, YY, psi, phi;
+    cout << "析构G_Source" << endl;
 }
 
 void G_Source::normrnd(double* resultArray, double mu, double sigma_beamsize, int n, int n1, int rank1)

@@ -13,7 +13,7 @@ namespace Furion_NS
     private:
         /* data */
     public:
-        class G_Beam beam_out;
+        class G_Beam* beam_out;
         double lambda;          //wave length
         int n;
         double* XX = new double[Furion::n];

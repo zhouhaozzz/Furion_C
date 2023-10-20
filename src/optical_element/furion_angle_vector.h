@@ -15,7 +15,7 @@ namespace Furion_NS
         Furion_Angle_Vector();
         ~Furion_Angle_Vector();
 
-        void Furion_angle_vector(double *Phi, double *Psi, double *L, double *M, double *N, int n);
+        void Furion_angle_vector(double *Phi, double *Psi, double *L, double *M, double *N);
     };
 }
 

@@ -23,8 +23,6 @@ using namespace std;
 
 #define Pi 3.1415926536
 #define E  2.71828
-//int nn = 0;
-
 
 namespace Furion_NS
 {
@@ -40,7 +38,7 @@ namespace Furion_NS
         class G_Furion_Hole* g_Furion_hole;
         class G_Furion_Paraboid_Collimation_Mirror* g_Furion_paraboid_collimation_Mirror;
         class G_Furion_Paraboid_Focus_Mirror* g_Furion_paraboid_focus_Mirror;
-        class G_Furion_Cyliner_Parabolic_Collimation_Mirror* g_Furion_cyliner_parabolic_collimation_Mirror;
+        class G_Furion_Paraboid_Focus_Mirror* g_Furion_parabolic_focus_Mirror;
         class G_Furion_Cyliner_Parabolic_Focus_Mirror* g_Furion_cyliner_parabolic_focus_Mirror;
         Furion(int rank1, int size1);
         ~Furion();

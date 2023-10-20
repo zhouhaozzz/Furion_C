@@ -10,18 +10,15 @@ namespace Furion_NS
     class No_Surfe
     {
     public:
-        //double* meri_X = new double[Furion::n]; //Meridian coordinates
-        //double* sag_Y = new double[Furion::n]; //Sagittal direction coordinates
-        //double* V = new double[Furion::n]; //Height profile error value
-
-        vector<vector<double>>* meri_X = new std::vector<std::vector<double>>;
-        vector<vector<double>>* sag_Y = new std::vector<std::vector<double>>;
-        vector<vector<double>>* V = new std::vector<std::vector<double>>;
+        double* meri_X = new double[Furion::n]; //Meridian coordinates
+        double* sag_Y = new double[Furion::n]; //Sagittal direction coordinates
+        double* V = new double[Furion::n]; //Height profile error value
+        double* adress = new double[Furion::n];
 
         No_Surfe();
         ~No_Surfe();
 
-        virtual void value(double *Vq, double *Z, double *X, int n);
+        void value(double *Vq, double *Z, double *X, int n);
     };
 }
 

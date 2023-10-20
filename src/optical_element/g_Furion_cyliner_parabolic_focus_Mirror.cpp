@@ -23,7 +23,7 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::run(G_Beam* beam_in, double ds, do
 
 void G_Furion_Cyliner_Parabolic_Focus_Mirror::intersection(double* T)
 {
-    int n = this->n;
+    int n = Furion::n;
     
     for (int i = 0; i < n; i++) {T[i] = center->T[i];}
     cneter_to_oe_p(this->X2, this->Y2, this->Z2, center->X2, center->Y2, center->Z2);
@@ -48,7 +48,7 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::matrixMulti_GFCPFM(double* L2, dou
 
 void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_p(double *X2, double *Y2, double *Z2, double *X, double *Y, double *Z)
 {
-    int n = this->n;
+    int n = beam_in->n;
 
     double *OS = new double[9];
     f_rx.furion_rotx(this->theta, OS);
@@ -62,7 +62,7 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_p(double *X2, double 
 
 void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
 {
-    int n = this->n;
+    int n = beam_in->n;
 
     double* OS = new double[9];
 
