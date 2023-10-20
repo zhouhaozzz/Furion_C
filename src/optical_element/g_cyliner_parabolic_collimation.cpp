@@ -23,7 +23,7 @@ void G_Cyliner_Parabolic_Collimation::run(G_Beam* beam_in, double ds, double di,
 
 void G_Cyliner_Parabolic_Collimation::source_to_oe(double* X, double* Y, double ds, double* L, double* M, double* N)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     double* OS = new double[9];
     double* OS_0 = new double[9];
@@ -31,9 +31,9 @@ void G_Cyliner_Parabolic_Collimation::source_to_oe(double* X, double* Y, double 
     f_rx.furion_rotx(2*this->theta, OS_0);
     f_rz.furion_rotz(this->chi, OS_1);
 
-    double* X0 = new double[n];
-    double* Y0 = new double[n];
-    double* Z0 = new double[n];
+    double* X0 = new double[Furion::n];
+    double* Y0 = new double[Furion::n];
+    double* Z0 = new double[Furion::n];
     double* Z = new double[1];
     Z[0] = this->r1 - ds;
 
@@ -50,17 +50,17 @@ void G_Cyliner_Parabolic_Collimation::source_to_oe(double* X, double* Y, double 
 
 void G_Cyliner_Parabolic_Collimation::intersection(double* T)
 {
-    int n = this->n;
+    int n = Furion::n;
 
-    double* A = new double[n];
-    double* B = new double[n];
-    double* C = new double[n];
+    double* A = new double[Furion::n];
+    double* B = new double[Furion::n];
+    double* C = new double[Furion::n];
 
     for (int i = 0; i < n; i++)
     {
         A[i] = this->M1[i] * this->M1[i];
-        B[i] = 2 * (-this->N1[i] * this->p + this->M1[i] * this->Y1[i]);
-        C[i] = this->Y1[i] * this->Y1[i] - 2 * this->p * this->Z1[i];
+        B[i] = 2 * (this->N1[i] * this->p + this->M1[i] * this->Y1[i]);
+        C[i] = this->Y1[i] * this->Y1[i] + 2 * this->p * this->Z1[i];
         T[i] = (-B[i] + sqrt(B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
         this->T[i] = T[i];
 
@@ -75,7 +75,7 @@ void G_Cyliner_Parabolic_Collimation::intersection(double* T)
 
 void G_Cyliner_Parabolic_Collimation::normal(double* Nx, double* Ny, double* Nz)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     double data;
     double p2 = this->p * this->p;
@@ -84,7 +84,7 @@ void G_Cyliner_Parabolic_Collimation::normal(double* Nx, double* Ny, double* Nz)
     {
         data = sqrt(this->Y2[i] * this->Y2[i] + p2);
         Ny[i] = -(this->Y2[i]) / data;
-        Nz[i] = (this->p) / data;
+        Nz[i] = -(this->p) / data;
         Nx[i] = 0;
 
         this->Nx[i] = Nx[i];
@@ -96,7 +96,7 @@ void G_Cyliner_Parabolic_Collimation::normal(double* Nx, double* Ny, double* Nz)
 
 void G_Cyliner_Parabolic_Collimation::h_slope(double* h_slope, double* Y2)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     for (int i = 0; i < n; i++)
     {

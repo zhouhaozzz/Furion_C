@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 include_directories(C:/software/C_library/eigen-3.4.0)
-include_directories(C:/software/C_library/boost_1.79.0/include/boost-1_79)
 #include_directories(C:/software/C_library/MPI/Include)
 include_directories(${CMAKE_SOURCE_DIR})
 
@@ -40,3 +39,4 @@ set(XOP_H     "${CMAKE_SOURCE_DIR}/src/xop")
 set(SRC_H     "${CMAKE_SOURCE_DIR}/src")
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
+add_subdirectory(${CMAKE_SOURCE_DIR}/geo_Test)

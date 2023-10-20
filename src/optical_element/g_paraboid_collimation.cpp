@@ -16,11 +16,11 @@ G_Paraboid_Collimation::~G_Paraboid_Collimation()
 
 void G_Paraboid_Collimation::intersection(double* T)
 {
-    int n = this->n;
+    int n = Furion::n;
 
-    double *A= new double[n];
-    double *B= new double[n];
-    double *C= new double[n];
+    double *A= new double[Furion::n];
+    double *B= new double[Furion::n];
+    double *C= new double[Furion::n];
 
     for (int i = 0; i < n; i++) 
     {
@@ -41,7 +41,7 @@ void G_Paraboid_Collimation::intersection(double* T)
 
 void G_Paraboid_Collimation::normal(double *Nx, double *Ny, double *Nz)
 {
-    int n = this->n;
+    int n = Furion::n;
 
     double data;
     double p2 = this->p * this->p;
