@@ -22,7 +22,7 @@ void G_Paraboid_Focus::run(G_Beam* beam_in, double ds, double di, double chi, do
 
 void G_Paraboid_Focus::intersection(double* T)
 {
-    int n = Furion::n;
+    int n = this->n;
 
     double *A= new double[Furion::n];
     double *B= new double[Furion::n];
@@ -47,7 +47,7 @@ void G_Paraboid_Focus::intersection(double* T)
 
 void G_Paraboid_Focus::normal(double *Nx, double *Ny, double *Nz)
 {
-    int n = Furion::n;
+    int n = this->n;
 
     double data;
     double p2 = this->p * this->p;

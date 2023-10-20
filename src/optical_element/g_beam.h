@@ -20,7 +20,7 @@ namespace Furion_NS
         double* phi = new double[Furion::n];
 
 
-        G_Beam(double* XX, double* YY, double* phi, double* psi, double lambda);
+        G_Beam(double* XX, double* YY, double* phi, double* psi, double lambda, int n);
         ~G_Beam();
 
         class Furion_Plot_Sigma f_p_s;

@@ -4,7 +4,7 @@
 using namespace Furion_NS;
 
 G_Oe::G_Oe(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, Grating* grating)
-    : beam_in(beam_in), grating(grating), surface(surface), theta(theta), chi(chi), beam_out(beam_in), Cff(0), theta2(0)
+    : beam_in(beam_in), grating(grating), surface(surface), theta(theta), chi(chi), beam_out(beam_in), Cff(0), theta2(0), n(beam_in->n)
 {
     //beam_out = nullptr;
     // beam_out = G_Beam((this->X_, this->Y_, beam_in->phi, beam_in->psi, beam_in->lambda))
@@ -18,26 +18,27 @@ G_Oe::~G_Oe()
 
 void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double theta)
 {
-    double *L = new double[Furion::n];
-    double *M = new double[Furion::n];
-    double *N = new double[Furion::n];
-    double *T = new double[Furion::n];
-    double *T1 = new double[Furion::n];
-    double *Nx = new double[Furion::n];
-    double *Ny = new double[Furion::n];
-    double *Nz = new double[Furion::n];
-    double *hslope = new double[Furion::n];
-    double *L2 = new double[Furion::n];
-    double *M2 = new double[Furion::n];
-    double *N2 = new double[Furion::n];
-    double *X3 = new double[Furion::n];
-    double *Y3 = new double[Furion::n];
-    double *Z3 = new double[Furion::n];
-    double *L3 = new double[Furion::n];
-    double *M3 = new double[Furion::n];
-    double *N3 = new double[Furion::n];
+    //int n = 1000;
+    double *L = new double[this->n];
+    double *M = new double[this->n];
+    double *N = new double[this->n];
+    double *T = new double[this->n];
+    double *T1 = new double[this->n];
+    double *Nx = new double[this->n];
+    double *Ny = new double[this->n];
+    double *Nz = new double[this->n];
+    double *hslope = new double[this->n];
+    double *L2 = new double[this->n];
+    double *M2 = new double[this->n];
+    double *N2 = new double[this->n];
+    double *X3 = new double[this->n];
+    double *Y3 = new double[this->n];
+    double *Z3 = new double[this->n];
+    double *L3 = new double[this->n];
+    double *M3 = new double[this->n];
+    double *N3 = new double[this->n];
 
-    f_a_v.Furion_angle_vector(beam_in->phi, beam_in->psi, L, M, N);               //[phi,psi]-&gt; [L,M,N] angles are converted to unit vectors
+    f_a_v.Furion_angle_vector(beam_in->phi, beam_in->psi, L, M, N, this->n);               //[phi,psi]-&gt; [L,M,N] angles are converted to unit vectors
 
     source_to_oe(beam_in->XX, beam_in->YY, ds, L, M, N);           //From light source coordinate system to optical component coordinate system
 
@@ -50,11 +51,11 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
     this->theta2 = Pi / 2 - asin(sin(Pi / 2 - theta) - grating->n0 * grating->m * grating->lambda_G);
     this->Cff = cos(Pi / 2 - this->theta2) / cos(Pi / 2 - this->theta);
     
-    f_r_v.Furion_reflect_Vector(this->cos_Alpha, L2, M2, N2, this->L1, this->M1, this->N1, Nx, Ny, Nz, grating->lambda_G, grating->m, grating->n0, grating->b, this->Z2, hslope, this->Cff);
+    f_r_v.Furion_reflect_Vector(this->cos_Alpha, L2, M2, N2, this->L1, this->M1, this->N1, Nx, Ny, Nz, grating->lambda_G, grating->m, grating->n0, grating->b, this->Z2, hslope, this->Cff, n);
     
     oe_to_image(X3, Y3, Z3, L3, M3, N3, this->X2, this->Y2, this->Z2, di, L2, M2, N2);
 
-    for (int i = 0; i < Furion::n; i++)
+    for (int i = 0; i < n; i++)
     {
         T1[i] = -Z3[i] / N3[i];
         this->X_[i] = X3[i] + T1[i]*L3[i];
@@ -62,9 +63,9 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
         this->Phase[i] = (T[i]+T1[i])/beam_in->lambda*2*Pi - grating->n0*grating->m*2*Pi*Z2[i] - 0.5 * grating->m*grating->b*grating->n0*2*Pi*(Z2[i]*Z2[i]);
     }
     
-    f_v_a.Furion_vector_angle(this->PHI, this->PSI, L3, M3);
+    f_v_a.Furion_vector_angle(this->PHI, this->PSI, L3, M3, this->n);
     
-    beam_out = new G_Beam((this->X_), (this->Y_), (this->PHI), (this->PSI), beam_in->lambda);
+    beam_out = new G_Beam((this->X_), (this->Y_), (this->PHI), (this->PSI), beam_in->lambda, n);
 
     delete[] L,M,N;
     delete[] T, T1;
@@ -76,7 +77,7 @@ void G_Oe::reflect(G_Beam* beam_in, double ds, double di, double chi, double the
 
 void G_Oe::source_to_oe(double *X, double *Y, double ds, double *L, double *M, double *N)
 {
-    int n = Furion::n;
+    int n = this->n;
     double* OS = new double[9];
     double *OS_0 = new double[9];
     double *OS_1 = new double[9]; 
@@ -127,7 +128,7 @@ void G_Oe::matrixMulti0(double* L2, double* M2, double* N2, double* matrix, doub
 
 void G_Oe::intersection(double *T)
 {
-    int n = Furion::n;
+    int n = this->n;
 
     for (int i = 0; i < n; i++) 
     {
@@ -142,7 +143,7 @@ void G_Oe::intersection(double *T)
 
 void G_Oe::normal(double *Nx, double *Ny, double *Nz)
 {
-    int n = Furion::n;
+    int n = this->n;
 
     for (int i = 0; i < n; i++) 
     {
@@ -156,7 +157,7 @@ void G_Oe::normal(double *Nx, double *Ny, double *Nz)
 
 void G_Oe::h_slope(double *h_slope, double *Y2)
 {
-    int n = Furion::n;
+    int n = this->n;
     double *h0  = new double[Furion::n];
     double *h1  = new double[Furion::n];
     double *delta_Z1  = new double[Furion::n];
@@ -186,7 +187,7 @@ void G_Oe::h_slope(double *h_slope, double *Y2)
 
 void G_Oe::oe_to_image(double *X3, double *Y3, double *Z3, double *L3, double *M3, double *N3, double *X2, double *Y2, double *Z2, double di, double *L2, double *M2, double *N2)
 {
-    int n = Furion::n;
+    int n = this->n;
 
     double* OS = new double[9];
     double *OS_0 = new double[9];

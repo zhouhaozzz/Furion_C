@@ -3,7 +3,7 @@
 #include <chrono>
 using namespace Furion_NS;
 
-G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1) : beam_out(XX, YY, phi, psi, lambda)
+G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1) : beam_out(XX, YY, phi, psi, lambda, n)
 {
     cout << "G_SourceµÄ³õÊ¼»¯" << endl;
     normrnd(this->XX, 0, sigma_beamsize, n, 1, rank1);// Normal random number
@@ -11,7 +11,7 @@ G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double
     normrnd(this->phi, 0, sigma_divergence, n, 3, rank1);
     normrnd(this->psi, 0, sigma_divergence, n, 4, rank1);
 
-    beam_out = G_Beam(this->XX, this->YY, this->phi, this->psi, lambda);
+    beam_out = G_Beam(this->XX, this->YY, this->phi, this->psi, lambda, n);
 }
 
 G_Source::~G_Source()

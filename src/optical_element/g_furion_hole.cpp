@@ -8,7 +8,7 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
     cout << "³õÊ¼»¯G_Furion_Hole" << endl;
     int n = beam_in->n;
 
-    beam_out = new G_Beam(beam_in->XX, beam_in->YY, beam_in->phi, beam_in->psi, beam_in->lambda);
+    beam_out = new G_Beam(beam_in->XX, beam_in->YY, beam_in->phi, beam_in->psi, beam_in->lambda, n);
     
     int Count = 0;
     for (int i = 0; i < n; i++)
@@ -22,7 +22,9 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
             Count = Count + 1;
         }
     }
-    cout << Count << endl;
+    beam_out->n = Count;
+    beam_in->n = Count;
+    //cout << Count << endl;
 
     for (int i = Count; i < n; i++)
     {

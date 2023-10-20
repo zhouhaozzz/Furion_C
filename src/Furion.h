@@ -23,6 +23,8 @@ using namespace std;
 
 #define Pi 3.1415926536
 #define E  2.71828
+//int nn = 0;
+
 
 namespace Furion_NS
 {

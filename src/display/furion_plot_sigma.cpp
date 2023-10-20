@@ -12,28 +12,28 @@ Furion_Plot_Sigma::~Furion_Plot_Sigma()
 
 }
 
-void Furion_Plot_Sigma::Furion_plot_sigma(double* X, double* Y, double* Phi, double* Psi, int rank1)
+void Furion_Plot_Sigma::Furion_plot_sigma(double* X, double* Y, double* Phi, double* Psi, int rank1, int n)
 {
 	ofstream fileout("data/Furion_plot_sigma_" + inttoStr(rank1+1) + ".dat");
 	fileout << std::fixed;
 	fileout << std::setprecision(15);
 
-	for (int i = 0; i < Furion::n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		fileout << X[i] << " ";
 	}
 	fileout << "\n";
-	for (int i = 0; i < Furion::n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		fileout << Y[i] << " ";
 	}
 	fileout << "\n";
-	for (int i = 0; i < Furion::n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		fileout << Phi[i] << " ";
 	}
 	fileout << "\n";
-	for (int i = 0; i < Furion::n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		fileout << Psi[i] << " ";
 	}

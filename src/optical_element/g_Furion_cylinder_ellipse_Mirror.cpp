@@ -22,7 +22,7 @@ void G_Furion_Cylinder_Ellipse_Mirror::run(G_Beam* beam_in, double ds, double di
 
 void G_Furion_Cylinder_Ellipse_Mirror::intersection(double* T)
 {
-    int n = Furion::n;
+    int n = this->n;
     
     for (int i = 0; i < n; i++) {T[i] = center->T[i];}
     cneter_to_oe_p(this->X2, this->Y2, this->Z2, center->X2, center->Y2, center->Z2);
@@ -50,16 +50,16 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_p(double *X2, double *Y2, do
 {
     double a1 = center->e;
     double alpha1 = center->alpha;
-    int n = beam_in->n;
+    int n = this->n;
 
     double *OS_0 = new double[9];
     double *OS_1 = new double[9]; 
     f_rx.furion_rotx(this->theta, OS_0);
     f_rx.furion_rotx(-alpha1, OS_1);
 
-    double *X0 = new double[Furion::n];
-    double *Y0 = new double[Furion::n];
-    double *Z0 = new double[Furion::n];
+    double *X0 = new double[n];
+    double *Y0 = new double[n];
+    double *Z0 = new double[n];
     //for (int i = 0; i < n; i++) {ZZ[i] = Z[i] + a1;}
     matrixMulti_GFCEM(X0, Y0, Z0, OS_1, X, Y, Z, a1, n);
     //for (int i = 0; i < n; i++) {Z0[i] = Z0[i] - center->r1;}
@@ -72,7 +72,7 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_p(double *X2, double *Y2, do
 void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
 {
     double alpha1 = center->alpha;
-    int n = beam_in->n;
+    int n = this->n;
 
     double* OS = new double[9];
     double *OS_0 = new double[9];

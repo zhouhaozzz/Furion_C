@@ -16,11 +16,11 @@ G_Ellipsoid::~G_Ellipsoid()
 
 void G_Ellipsoid::intersection(double* T)
 {
-    int n = Furion::n;
+    int n = this->n;
 
-    double *A = new double[Furion::n];
-    double *B = new double[Furion::n];
-    double *C = new double[Furion::n];
+    double *A = new double[this->n];
+    double *B = new double[this->n];
+    double *C = new double[this->n];
     double a2 = this->a * this->a;
     double b2 = this->b * this->b;
     double ab2 = a2*b2;
@@ -44,7 +44,7 @@ void G_Ellipsoid::intersection(double* T)
 
 void G_Ellipsoid::normal(double *Nx, double *Ny, double *Nz)
 {
-    int n = Furion::n;
+    int n = this->n;
     
     double a2 = this->a * this->a;
     double b2 = this->b * this->b;

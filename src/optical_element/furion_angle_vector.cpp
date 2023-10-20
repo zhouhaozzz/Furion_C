@@ -12,9 +12,9 @@ Furion_Angle_Vector::~Furion_Angle_Vector()
     
 }
 
-void Furion_Angle_Vector::Furion_angle_vector(double* Phi, double* Psi, double* L, double* M, double* N)
+void Furion_Angle_Vector::Furion_angle_vector(double* Phi, double* Psi, double* L, double* M, double* N, int n)
 {
-    int n = Furion::n;
+    //int n = Furion::n;
 
     for (int i = 0; i < n; i++)
     {

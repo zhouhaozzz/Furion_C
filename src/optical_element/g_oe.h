@@ -41,6 +41,8 @@ namespace Furion_NS
         double Cff;
         double theta2;
 
+        int n;
+
         G_Beam* beam_out;
         G_Beam* beam_in;
         Grating* grating;

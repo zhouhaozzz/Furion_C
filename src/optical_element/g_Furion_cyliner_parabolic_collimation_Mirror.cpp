@@ -22,7 +22,7 @@ void G_Furion_Cyliner_Parabolic_Collimation_Mirror::run(G_Beam* beam_in, double 
 
 void G_Furion_Cyliner_Parabolic_Collimation_Mirror::intersection(double* T)
 {
-    int n = Furion::n;
+    int n = this->n;
     
     for (int i = 0; i < n; i++) {T[i] = center->T[i];}
     cneter_to_oe_p(this->X2, this->Y2, this->Z2, center->X2, center->Y2, center->Z2);
@@ -47,7 +47,7 @@ void G_Furion_Cyliner_Parabolic_Collimation_Mirror::matrixMulti_GFCEM(double* L2
 
 void G_Furion_Cyliner_Parabolic_Collimation_Mirror::cneter_to_oe_p(double *X2, double *Y2, double *Z2, double *X, double *Y, double *Z)
 {
-    int n = beam_in->n;
+    int n = this->n;
 
     double *OS_0 = new double[9];
     double *OS_1 = new double[9]; 
@@ -68,7 +68,7 @@ void G_Furion_Cyliner_Parabolic_Collimation_Mirror::cneter_to_oe_p(double *X2, d
 
 void G_Furion_Cyliner_Parabolic_Collimation_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
 {
-    int n = beam_in->n;
+    int n = this->n;
 
     double* OS = new double[9];
 
