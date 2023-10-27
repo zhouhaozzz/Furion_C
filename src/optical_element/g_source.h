@@ -16,10 +16,10 @@ namespace Furion_NS
         class G_Beam beam_out;
         double lambda;          //wave length
         int n;
-        double* XX = new double[Furion::n];
-        double* YY = new double[Furion::n];
-        double* psi = new double[Furion::n];
-        double* phi = new double[Furion::n];
+        double* XX;
+        double* YY;
+        double* psi;
+        double* phi;
 
         G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1);
         ~G_Source();

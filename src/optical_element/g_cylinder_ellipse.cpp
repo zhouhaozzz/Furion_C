@@ -6,7 +6,7 @@ G_Cylinder_Ellipse::G_Cylinder_Ellipse(G_Beam* beam_in, double ds, double di, do
     : G_Oe(beam_in, ds, di, chi, theta, surface, grating)
 {
     this->r1 = r1;
-    this->e = sqrt(r1 * r1 + r2 * r2 - 2 * r1 * r2 * cos(Pi - 2 * theta)) / 2;
+    this->e = sqrt(r1 * r1 + r2 * r2 - 2 * r1 * r2 * cos(_Pi - 2 * theta)) / 2;
     this->alpha = acos((r1 * r1 + 4 * this->e * this->e - r2 * r2) / (4 * r1 * this->e));
     this->beta = acos((r2 * r2 + 4 * this->e * this->e - r1 * r1) / (4 * r2 * this->e));
     this->a = (r1 + r2) / 2;
@@ -17,7 +17,11 @@ G_Cylinder_Ellipse::G_Cylinder_Ellipse(G_Beam* beam_in, double ds, double di, do
 
 G_Cylinder_Ellipse::~G_Cylinder_Ellipse()
 {
-    delete[] T, Nx, Ny, Nz;
+    destory_1d(this->T);
+    destory_1d(this->Nx);
+    destory_1d(this->Ny);
+    destory_1d(this->Nz);
+    cout << "G_Cylinder_Ellipse的析构" << endl;
 }
 
 void G_Cylinder_Ellipse::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
@@ -48,7 +52,14 @@ void G_Cylinder_Ellipse::source_to_oe(double* X, double* Y, double ds, double* L
     matrixMulti33(OS, OS_0, OS_1);
     matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
 
-    delete[] X0, Y0, Z0, Z, OS, OS_0, OS_1;
+    destory_1d(X0);
+    destory_1d(Y0);
+    destory_1d(Z0);
+    destory_1d(Z);
+    destory_1d(OS);
+    destory_1d(OS_0);
+    destory_1d(OS_1);
+
     cout << "G_Cylinder_Ellipse的source_to_oe" << endl;
 }
 
@@ -78,7 +89,10 @@ void G_Cylinder_Ellipse::intersection(double* T)
     } 
     cout << "G_Cylinder_Ellipse的intersection" << endl;
 
-    delete[] A,B,C;
+    destory_1d(A);
+    destory_1d(B);
+    destory_1d(C);
+
 }
 
 void G_Cylinder_Ellipse::normal(double *Nx, double *Ny, double *Nz)

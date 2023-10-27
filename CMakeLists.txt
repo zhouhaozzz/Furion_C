@@ -9,10 +9,19 @@ project(Furion)
 set(CMAKE_CXX_STANDARD 17)
 
 
+
 include_directories(C:/software/C_library/eigen-3.4.0)
 include_directories(C:/software/C_library/boost_1.79.0/include/boost-1_79)
+include_directories(C:/software/DEV/vcpkg/packages/gsl_x64-windows/include)
+include_directories(C:/software/C_library/fftw-3.3.5)
+
 #include_directories(C:/software/C_library/MPI/Include)
 include_directories(${CMAKE_SOURCE_DIR})
+
+LINK_DIRECTORIES(C:/software/DEV/vcpkg/packages/gsl_x64-windows/lib)
+LINK_DIRECTORIES(C:/software/DEV/vcpkg/packages/gsl_x64-windows/bin)
+LINK_DIRECTORIES(C:/software/C_library/fftw-3.3.5)
+
 
 # include 头文件
 #include_directories(C:/Program Files (x86)/Intel/oneAPI/mkl/2023.2.0/include)
@@ -40,3 +49,5 @@ set(XOP_H     "${CMAKE_SOURCE_DIR}/src/xop")
 set(SRC_H     "${CMAKE_SOURCE_DIR}/src")
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
+
+

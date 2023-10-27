@@ -10,7 +10,8 @@ G_Furion_Cyliner_Parabolic_Collimation_Mirror::G_Furion_Cyliner_Parabolic_Collim
 
 G_Furion_Cyliner_Parabolic_Collimation_Mirror::~G_Furion_Cyliner_Parabolic_Collimation_Mirror()
 {
-    //delete ct;
+    //delete center;
+    //cout << "G_Furion_Cyliner_Parabolic_Collimation_Mirror Îö¹¹" << endl;
 }
 
 void G_Furion_Cyliner_Parabolic_Collimation_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
@@ -63,7 +64,11 @@ void G_Furion_Cyliner_Parabolic_Collimation_Mirror::cneter_to_oe_p(double *X2, d
     matrixMulti_GFCEM(X2, Y2, Z2, OS_0, X0, Y0, Z0, - center->r1, n);
     
     // Furion_rotx(obj.theta)*((Furion_rotx(-alpha1)*[X;Y;Z+a1])-repmat([0; 0;obj.center.r1],1,n));
-    delete[] OS_0, OS_1, X0, Y0, Z0;
+    destory_1d(X0);
+    destory_1d(Y0);
+    destory_1d(Z0);
+    destory_1d(OS_0);
+    destory_1d(OS_1);
 }
 
 void G_Furion_Cyliner_Parabolic_Collimation_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
@@ -76,7 +81,7 @@ void G_Furion_Cyliner_Parabolic_Collimation_Mirror::cneter_to_oe_v(double *Nx, d
 
     matrixMulti(Nx, Ny, Nz, OS, L, M, N, 0, n);
 
-    delete[] OS;
+    destory_1d(OS);
 
 }
 

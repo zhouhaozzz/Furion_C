@@ -4,15 +4,15 @@ using namespace Furion_NS;
 
 No_Surfe::No_Surfe()// : meri_X(nullptr), sag_Y(nullptr), V(nullptr)
 {
-
+    cout << "No_Surfe的初始化" << endl;
 }
 
 No_Surfe::~No_Surfe()
 {
-   
+    cout << "No_Surfe的析构" << endl;
 }
 
-void No_Surfe::value(double *Vq, double *Z, double *X, int n)
+void No_Surfe::value(double* Vq, double* X, double* Y, int n)
 {
     for (int i = 0; i < n; i++) 
     {

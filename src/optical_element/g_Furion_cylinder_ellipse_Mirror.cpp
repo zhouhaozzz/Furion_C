@@ -66,7 +66,11 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_p(double *X2, double *Y2, do
     matrixMulti_GFCEM(X2, Y2, Z2, OS_0, X0, Y0, Z0, - center->r1, n);
     
     // Furion_rotx(obj.theta)*((Furion_rotx(-alpha1)*[X;Y;Z+a1])-repmat([0; 0;obj.center.r1],1,n));
-    delete[] OS_0, OS_1, X0, Y0, Z0;
+    destory_1d(X0);
+    destory_1d(Y0);
+    destory_1d(Z0);
+    destory_1d(OS_0);
+    destory_1d(OS_1);
 }
 
 void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
@@ -83,7 +87,9 @@ void G_Furion_Cylinder_Ellipse_Mirror::cneter_to_oe_v(double *Nx, double *Ny, do
     matrixMulti33(OS, OS_0, OS_1);
     matrixMulti(Nx, Ny, Nz, OS, L, M, N, 0, n);
 
-    delete[] OS, OS_0, OS_1;
+    destory_1d(OS);
+    destory_1d(OS_0);
+    destory_1d(OS_1);
 
 }
 

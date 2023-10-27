@@ -12,7 +12,8 @@ G_Furion_Paraboid_Collimation_Mirror::G_Furion_Paraboid_Collimation_Mirror(G_Bea
 
 G_Furion_Paraboid_Collimation_Mirror::~G_Furion_Paraboid_Collimation_Mirror()
 {
-    //delete ct;
+    //delete center;
+    //cout << "G_Furion_Paraboid_Collimation_Mirror Îö¹¹" << endl;
 }
 
 void G_Furion_Paraboid_Collimation_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)

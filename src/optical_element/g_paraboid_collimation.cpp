@@ -36,7 +36,9 @@ void G_Paraboid_Collimation::intersection(double* T)
     } 
     cout << "G_Paraboid_CollimationµÄintersection" << endl;
     
-    delete[] A,B,C;
+    destory_1d(A);
+    destory_1d(B);
+    destory_1d(C);
 }
 
 void G_Paraboid_Collimation::normal(double *Nx, double *Ny, double *Nz)

@@ -12,7 +12,11 @@ G_Cyliner_Parabolic_Collimation::G_Cyliner_Parabolic_Collimation(G_Beam* beam_in
 
 G_Cyliner_Parabolic_Collimation::~G_Cyliner_Parabolic_Collimation()
 {
-    //delete ct;
+    destory_1d(this->T);
+    destory_1d(this->Nx);
+    destory_1d(this->Ny);
+    destory_1d(this->Nz);
+    cout << "G_Cyliner_Parabolic_Collimation的析构" << endl;
 }
 
 void G_Cyliner_Parabolic_Collimation::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
@@ -43,7 +47,13 @@ void G_Cyliner_Parabolic_Collimation::source_to_oe(double* X, double* Y, double 
     matrixMulti33(OS, OS_0, OS_1);
     matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
     
-    delete[] X0, Y0, Z0, Z, OS, OS_0, OS_1;
+    destory_1d(X0);
+    destory_1d(Y0);
+    destory_1d(Z0);
+    destory_1d(Z);
+    destory_1d(OS);
+    destory_1d(OS_0);
+    destory_1d(OS_1);
     cout << "G_Cyliner_Parabolic_Collimation的source_to_oe" << endl;
 }
 
@@ -70,7 +80,9 @@ void G_Cyliner_Parabolic_Collimation::intersection(double* T)
     }
     cout << "G_Cyliner_Parabolic_Collimation的intersection" << endl;
 
-    delete[] A, B, C;
+    destory_1d(A);
+    destory_1d(B);
+    destory_1d(C);
 }
 
 void G_Cyliner_Parabolic_Collimation::normal(double* Nx, double* Ny, double* Nz)

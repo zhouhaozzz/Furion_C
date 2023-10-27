@@ -10,7 +10,12 @@ G_Beam::G_Beam(double* XX, double* YY, double* phi, double* psi, double lambda, 
 
 G_Beam::~G_Beam()
 {
-    //delete XX, YY, psi, phi;   
+    destory_1d(this->XX);
+    destory_1d(this->YY);
+    destory_1d(this->psi);
+    destory_1d(this->phi);
+    cout << "G_BeamµÄÎö¹¹" << endl;
+
 }
 
 G_Beam G_Beam::translate(double distance)

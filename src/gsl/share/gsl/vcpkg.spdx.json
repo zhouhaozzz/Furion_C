@@ -1,0 +1,221 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/gsl-x64-windows-2.7.1#3-5267ab37-cccb-447f-9eec-984210b70042",
+  "name": "gsl:x64-windows@2.7.1#3 20ceb998be9bcb594393677ed5a942c2f483626f032b0c45500a8467a1290628",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-27de5b69dac4b6fe8259d283cd4011e6d20a84ce"
+    ],
+    "created": "2023-10-23T02:38:58Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-2"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-3"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-4"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-5"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-6"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-2",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-3",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-4",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-5",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-6",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "gsl",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "2.7.1#3",
+      "downloadLocation": "git+https://github.com/Microsoft/vcpkg#ports/gsl",
+      "homepage": "https://www.gnu.org/software/gsl/",
+      "licenseConcluded": "GPL-3.0-or-later",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "The GNU Scientific Library is a numerical library for C and C++ programmers",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "gsl:x64-windows",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "20ceb998be9bcb594393677ed5a942c2f483626f032b0c45500a8467a1290628",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "GPL-3.0-or-later",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "gsl-${GSL_VERSION}.tar.gz",
+      "packageFileName": "gsl-${GSL_VERSION}.tar.gz",
+      "downloadLocation": "https://ftp.gnu.org/gnu/gsl/gsl-${GSL_VERSION}.tar.gz",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "3300a748b63b583374701d5ae2a9db7349d0de51061a9f98e7c145b2f7de9710b3ad58b3318d0be2a9a287ace4cc5735bb9348cdf48075b98c1f6cc1029df131"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/0001-configure.patch",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "50fe9e6a4e68750fa2e21febf05471423cc7a0a38e59cf41d5009cd79352b2e6"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/0002-add-fp-control.patch",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6c6782327126ea979c5aceab3ee022b5ddc7d9d01c244774294572e73427ec4b"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/CMakeLists.txt",
+      "SPDXID": "SPDXRef-file-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "eb75737b301c472856f2de216e75ebdcd07a890d4323dd792d3be879dd90d7ca"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/portfile.cmake",
+      "SPDXID": "SPDXRef-file-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b939ed517583a31495d1965b843fbe8c1b3f6e640ada015a6950b7938aa9dd23"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/usage",
+      "SPDXID": "SPDXRef-file-4",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ec1bb6d04b1828d8a0244caa58d1b27c5d746b9f2525b470b141083c6e3e2ed9"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/vcpkg-cmake-wrapper.cmake",
+      "SPDXID": "SPDXRef-file-5",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3b2b1860aa93e5fbaffbf275e62811c7223f6e93b9903425d83b55b1c2d316ef"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/software/DEV/vcpkg/ports/gsl/vcpkg.json",
+      "SPDXID": "SPDXRef-file-6",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9f656ad47e24aa819cff72efd5564add9dbbc74f159bc320883c2e3c8a827a27"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}

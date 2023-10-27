@@ -14,10 +14,13 @@ namespace Furion_NS
         Surfefile_From_Shadow(const char* EXP_file);
         ~Surfefile_From_Shadow();
 
-        void value(double *Vq, double *Z, double *X, int n) override;
+        size_t numRows;
+        size_t numCols;
+
+        void value(double* Vq, double* X, double* Y, int n) override;
         int CountLine(const char* filename);
         void meshgrid(vector<vector<double>>* X, vector<vector<double>>* Y, const vector<double>& x, const std::vector<double>& y);
-
+        int interp2(double* Vq, double** X, double** Y, double** V, double* x, double* y, int n);
     };
 }
 

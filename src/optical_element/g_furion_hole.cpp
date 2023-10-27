@@ -37,6 +37,7 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
 
 G_Furion_Hole::~G_Furion_Hole()
 {
-    //delete ct;
+    delete beam_out;
+    cout << "G_Furion_Hole Îö¹¹" << endl;
 }
 

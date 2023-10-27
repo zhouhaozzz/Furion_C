@@ -1,3 +1,6 @@
+#add_compile_definitions(Geometric)
+add_compile_definitions(WAVE)
+
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/display" DIR_SOURCE_DISPLAY)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/furion_scri" DIR_SOURCE_FUR_SCRI)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/import_and_display_srw" DIR_SOURCE_IMP_DIS_SRW)
@@ -6,6 +9,9 @@ aux_source_directory("${PROJECT_SOURCE_DIR}/src/propagation" DIR_SOURCE_PROPAGAT
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/surface" DIR_SOURCE_SURFACE)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/xop" DIR_SOURCE_XOP)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src" DIR_SOURCE_SRC)
+
+#install(FILES ${GSL_HEADER_PATHS} DESTINATION include/gsl)
+
 
 # 指定生成目标
 add_executable( Furion 
@@ -42,7 +48,17 @@ target_include_directories(Furion PRIVATE
                            ${catkin_INCLUDE_DIRS}
                            )
 
+target_link_libraries(${PROJECT_NAME}
+                      gsl.dll
+                      gslcblas.dll
+                      libfftw3-3.dll
+                      libfftw3f-3.dll
+                      libfftw3l-3.dll
+)
+
 install(TARGETS Furion RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+
+
 
 # file(GLOB SOURCES "*.cpp")
 # add_executable(Furion ${SOURCES}) 

@@ -11,7 +11,8 @@ G_Furion_Cyliner_Parabolic_Focus_Mirror::G_Furion_Cyliner_Parabolic_Focus_Mirror
 
 G_Furion_Cyliner_Parabolic_Focus_Mirror::~G_Furion_Cyliner_Parabolic_Focus_Mirror()
 {
-
+    //delete center;
+    //cout << "G_Furion_Cyliner_Parabolic_Focus_Mirror Îö¹¹" << endl;
 }
 
 void G_Furion_Cyliner_Parabolic_Focus_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
@@ -57,7 +58,7 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_p(double *X2, double 
     double dy = center->r2 * sin(2 * center->theta);
     matrixMulti_GFCPFM(X2, Y2, Z2, OS, X, Y, Z, dx, dy, n);
     
-    delete[] OS;
+    destory_1d(OS);
 }
 
 void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
@@ -70,8 +71,7 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_v(double *Nx, double 
 
     matrixMulti(Nx, Ny, Nz, OS, L, M, N, 0, n);
 
-    delete[] OS;
-
+    destory_1d(OS);
 }
 
 void G_Furion_Cyliner_Parabolic_Focus_Mirror::set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)

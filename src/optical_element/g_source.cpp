@@ -6,6 +6,11 @@ using namespace Furion_NS;
 G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1) : beam_out(XX, YY, phi, psi, lambda, n)
 {
     cout << "G_Source的初始化" << endl;
+    this->XX = new double[beam_out.n];
+    this->YY = new double[beam_out.n];
+    this->phi = new double[beam_out.n];
+    this->psi = new double[beam_out.n];
+
     normrnd(this->XX, 0, sigma_beamsize, n, 1, rank1);// Normal random number
     normrnd(this->YY, 0, sigma_beamsize, n, 2, rank1);
     normrnd(this->phi, 0, sigma_divergence, n, 3, rank1);
@@ -16,7 +21,11 @@ G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double
 
 G_Source::~G_Source()
 {
-    delete XX, YY, psi, phi;
+    destory_1d(XX);
+    destory_1d(YY);
+    destory_1d(psi);
+    destory_1d(phi);
+    cout << "G_Source的析构" << endl;
 }
 
 void G_Source::normrnd(double* resultArray, double mu, double sigma_beamsize, int n, int n1, int rank1)

@@ -14,14 +14,19 @@ namespace Furion_NS
         //double* sag_Y = new double[Furion::n]; //Sagittal direction coordinates
         //double* V = new double[Furion::n]; //Height profile error value
 
-        vector<vector<double>>* meri_X = new std::vector<std::vector<double>>;
-        vector<vector<double>>* sag_Y = new std::vector<std::vector<double>>;
-        vector<vector<double>>* V = new std::vector<std::vector<double>>;
+        //vector<vector<double>>* meri_X = new std::vector<std::vector<double>>;
+        //vector<vector<double>>* sag_Y = new std::vector<std::vector<double>>;
+        //vector<vector<double>>* V = new std::vector<std::vector<double>>;
+
+        double** meri_X;
+        double** sag_Y;
+        double** V;
+        const char* adress;
 
         No_Surfe();
         ~No_Surfe();
 
-        virtual void value(double *Vq, double *Z, double *X, int n);
+        virtual void value(double* Vq, double* X, double* Y, int n);
     };
 }
 

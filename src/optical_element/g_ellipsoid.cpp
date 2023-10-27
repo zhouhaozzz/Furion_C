@@ -39,7 +39,9 @@ void G_Ellipsoid::intersection(double* T)
     }
     cout << "G_EllipsoidµÄintersection" << endl;
 
-    delete[] A,B,C;
+    destory_1d(A);
+    destory_1d(B);
+    destory_1d(C);
 }
 
 void G_Ellipsoid::normal(double *Nx, double *Ny, double *Nz)

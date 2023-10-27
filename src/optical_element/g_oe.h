@@ -20,21 +20,21 @@ namespace Furion_NS
     {
     public:
 
-        double *X_ = new double[Furion::n];                     //Output beam X coordinates
-        double *Y_ = new double[Furion::n];                     //Output beam Y coordinates
-        double *PSI = new double[Furion::n];                   //Output beam PHI Angle
-        double *PHI = new double[Furion::n];                   //Output beam PSI Angle
-        double *Phase = new double[Furion::n];                 //Output parameter
-        double *L1 = new double[Furion::n];          //Beam line direction in the optical component coordinate system [L1 M1 N1]
-        double *M1 = new double[Furion::n];          //Beam line direction in the optical component coordinate system [L1 M1 N1]
-        double *N1 = new double[Furion::n];          //Beam line direction in the optical component coordinate system [L1 M1 N1]
-        double *X1 = new double[Furion::n];          //Beam position [X1,Y1,Z1] in the optical component coordinate system unit m
-        double *Y1 = new double[Furion::n];          //Beam position [X1,Y1,Z1] in the optical component coordinate system unit m
-        double *Z1 = new double[Furion::n];          //Beam position [X1,Y1,Z1] in the optical component coordinate system unit m
-        double *X2 = new double[Furion::n];
-        double *Y2 = new double[Furion::n];
-        double *Z2 = new double[Furion::n];
-        double *cos_Alpha = new double[Furion::n];
+        double *X_;                     //Output beam X coordinates
+        double *Y_;                     //Output beam Y coordinates
+        double *PSI;                   //Output beam PHI Angle
+        double *PHI;                   //Output beam PSI Angle
+        double* Phase;                 //Output parameter
+        double *L1;          //Beam line direction in the optical component coordinate system [L1 M1 N1]
+        double *M1;          //Beam line direction in the optical component coordinate system [L1 M1 N1]
+        double *N1;          //Beam line direction in the optical component coordinate system [L1 M1 N1]
+        double *X1;          //Beam position [X1,Y1,Z1] in the optical component coordinate system unit m
+        double *Y1;          //Beam position [X1,Y1,Z1] in the optical component coordinate system unit m
+        double *Z1;          //Beam position [X1,Y1,Z1] in the optical component coordinate system unit m
+        double *X2;
+        double *Y2;
+        double *Z2;
+        double *cos_Alpha;
 
         double theta;       //Grazing Angle of incidence
         double chi;         //Direction of optical components

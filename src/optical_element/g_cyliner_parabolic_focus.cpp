@@ -13,7 +13,11 @@ G_Cyliner_Parabolic_Focus::G_Cyliner_Parabolic_Focus(G_Beam* beam_in, double ds,
 
 G_Cyliner_Parabolic_Focus::~G_Cyliner_Parabolic_Focus()
 {
-    //delete ct;
+    destory_1d(this->T);
+    destory_1d(this->Nx);
+    destory_1d(this->Ny);
+    destory_1d(this->Nz);
+    cout << "G_Cyliner_Parabolic_Focus Îö¹¹" << endl;
 }
 
 void G_Cyliner_Parabolic_Focus::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
@@ -47,7 +51,9 @@ void G_Cyliner_Parabolic_Focus::source_to_oe(double* X, double* Y, double ds, do
 
     matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
     
-    delete[] Z, OS;
+    destory_1d(Z);
+    destory_1d(OS);
+
     cout << "G_Cyliner_Parabolic_FocusµÄsource_to_oe" << endl;
 }
 
@@ -83,7 +89,9 @@ void G_Cyliner_Parabolic_Focus::intersection(double* T)
     }
     cout << "G_Cyliner_Parabolic_FocusµÄintersection" << endl;
     
-    delete[] A, B, C;
+    destory_1d(A);
+    destory_1d(B);
+    destory_1d(C);
 }
 
 void G_Cyliner_Parabolic_Focus::normal(double* Nx, double* Ny, double* Nz)
