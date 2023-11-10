@@ -32,7 +32,7 @@ void Beam::destory()
 Beam Beam::translate(double distance)
 {
     int flag = 2;
-    double L = Max(this->X[0], N) - Min(this->X[0], N);
+    double L = Furion_NS::Max(this->X[0], N) - Furion_NS::Min(this->X[0], N);
     
     if (flag == 1)
     {
@@ -70,7 +70,7 @@ void Beam::plot_sigma(double distance, int rank1)
     //f_p_s.Furion_plot_sigma(beam.XX, beam.YY, beam.phi, beam.psi, rank1, beam.n);
 }
 
-double Beam::Max(double* X, int n)
+double Furion_NS::Max(double* X, int n)
 {
     double max = X[0];
     for (int i = 1; i < n; i++)
@@ -84,7 +84,7 @@ double Beam::Max(double* X, int n)
     return max;
 }
 
-double Beam::Min(double* X, int n)
+double Furion_NS::Min(double* X, int n)
 {
     double min = X[0];
     for (int i = 1; i < n; i++)

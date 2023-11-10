@@ -16,32 +16,33 @@ Furion_Plane_Mirror::~Furion_Plane_Mirror()
 
 void Furion_Plane_Mirror::run(Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, Grating* grating)
 {
-    cout << "Furion_Plane_MirrorµÄset_center" << endl;
+    cout << "Furion_Plane_MirrorµÄrun" << endl;
     reflect(beam_in, ds, di, chi, theta);
 }
 
-void Furion_Plane_Mirror::tracing()
+std::string Furion_Plane_Mirror::tracing()
 {
     cout << "Furion_Plane_MirrorµÄtracing" << endl;
     No_Surfe* no_surfe = new No_Surfe();
     this-> g_mirror= new G_Furion_Plane_Mirror(this->gbeam_in, this->ds, this->di, this->chi, this->theta, no_surfe, 0, 0, this->grating);
     g_mirror->run(this->gbeam_in, this->ds, this->di, this->chi, this->theta, no_surfe, 0, 0, this->grating);
+
+    return ("Furion_Plane_Mirror");
 }
 
 void Furion_Plane_Mirror::create_w_beam(double* s_phase)
 {
-    int N2 = N * N;
     if (this->grating->m == 0)
     {
-        double* Phase = new double[N2];
-        for (int i = 0; i < N2; i++)
+        double* Phase = new double[this->N2];
+        for (int i = 0; i < this->N2; i++)
         {
             Phase[i] = this->g_mirror->Phase[i] + s_phase[i];
         }
         
         double** phase1;
         create_2d(phase1, N);
-        reshape(phase1, Phase,N,N);
+        Furion_NS::reshape(phase1, Phase,N,N);
         destory_1d(Phase);
 
         std::complex<double>** Field_new;
@@ -59,12 +60,3 @@ void Furion_Plane_Mirror::create_w_beam(double* s_phase)
     }
 }
 
-void Furion_NS::reshape(double** output, double* input, int x, int y)
-{
-    for (int i = 0; i < x; ++i) {
-        for (int j = 0; j < y; ++j) {
-            int index = i + j * x;
-            output[i][j] = input[index];
-        }
-    }
-}

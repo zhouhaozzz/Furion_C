@@ -1,17 +1,25 @@
 #include "Furion.h"
+#include <iostream>
+#include <math.h>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+#include <random>
+#include <complex>
 #include <chrono>
-// #include <mpi.h>
-//#include <Eigen/Dense>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_interp2d.h>
-#include <gsl/gsl_spline2d.h>
-#include <gsl/gsl_fft_complex.h>
-#include <fftw3.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_complex.h>
-#include <gsl/gsl_complex_math.h>
+
+
+
 
 using namespace Furion_NS;
+using namespace std;
 
 void interp2d_test()
 {
@@ -88,7 +96,7 @@ void fft_2d()
     // Êä³öÆµÓòÊý¾Ý
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            std::cout << "Freq[" << i << "][" << j << "]: " << data[i * cols + j][0] << " + " << data[i * cols + j][1] << "i" << std::endl;
+            //std::cout << "Freq[" << i << "][" << j << "]: " << data[i * cols + j][0] << " + " << data[i * cols + j][1] << "i" << std::endl;
         }
     }
 
@@ -106,6 +114,7 @@ int main(int argc, char* argv[])
 
     //interp2d_test();
     //fft_2d();
+    //cgal_test();
 
     // MPI_Init(0, 0);
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -113,10 +122,8 @@ int main(int argc, char* argv[])
 
     auto furion = new Furion(rank, size);
 
-        //double* h0 = new double[1e8];
-    //delete[] h0;
-    //double* h_U = (double*)malloc(1e8 * sizeof(double));
-    //double
+
+
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);

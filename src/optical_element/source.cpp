@@ -8,7 +8,7 @@ Source::Source(double L, int N, double sigma, double wavelength)
     cout << "SourceµÄ³õÊ¼»¯" << endl;
     double* x = new double[N];
 
-    linspace(x, -this->L / 2, this->L / 2, this->N);
+    Furion_NS::linspace(x, -this->L / 2, this->L / 2, this->N);
 
     create_2d(this->X, N);
     create_2d(this->Y, N);
@@ -46,13 +46,4 @@ Beam* Source::beam_out()
     Beam* beam = new Beam(this->X, this->Y, this->field, this->wavelength, this->N);
 
     return beam;
-}
-
-void Source::linspace(double* x, double min, double max, int N)
-{
-    double step = (max - min) / (N - 1);
-    for (int i = 0; i < N; i++)
-    {
-        x[i] = min + i * step;
-    }
 }

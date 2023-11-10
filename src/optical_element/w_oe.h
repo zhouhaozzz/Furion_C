@@ -10,8 +10,7 @@
 #include "no_surfe.h"
 #include "Furion_phase_unwrap2.h"
 #include "g_Furion_plane_Mirror.h"
-
-
+#include "g_Furion_cylinder_ellipse_Mirror.h"
 
 namespace Furion_NS
 {
@@ -26,6 +25,7 @@ namespace Furion_NS
         double theta;       //Grazing Angle of incidence
 
         int N;
+        int N2;
 
         Beam* beam_out;
         Beam* beam_in;
@@ -33,7 +33,12 @@ namespace Furion_NS
         Grating* grating;
         No_Surfe* surface;
 
+        //template <class G_Furion_Plane_Mirror*, class G_Furion_Cylinder_Ellipse_Mirror*> gg;
+
+        //template <typename TYPE> void destory_1d(TYPE*& data)
+
         G_Furion_Plane_Mirror* g_mirror;
+        G_Furion_Cylinder_Ellipse_Mirror* g_FCE_mirror;
 
         Furion_Phase_Unwrap2 f_p_u2;
 
@@ -41,7 +46,7 @@ namespace Furion_NS
         virtual ~W_Oe();
         
         void reflect(Beam* beam_in, double ds, double di, double chi, double theta);
-        virtual void tracing();
+        virtual std::string tracing();
         void create_g_beam();
         virtual void create_w_beam(double* s_phase);
         double mean_diff(double** X, int N, int n);

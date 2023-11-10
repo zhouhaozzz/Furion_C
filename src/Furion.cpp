@@ -22,6 +22,8 @@
 #include "no_surfe.h"
 #include "surfefile_from_shadow.h"
 #include "Furion_plane_Mirror.h"
+#include "Furion_cylinder_ellipse_Mirror.h"
+
 
 #endif // WAVE
 
@@ -125,7 +127,7 @@ Furion::Furion(int rank1, int size1)
 #endif // !Geometric
 
 #ifdef WAVE
-	//no_surfe = new No_Surfe();
+	no_surfe = new No_Surfe();
 	Surfefile_From_Shadow* surfM1 = new Surfefile_From_Shadow("G_shadow.dat");
 	//Surfefile_From_Shadow* surfM5 = new Surfefile_From_Shadow("M5_shadow03.dat");
 	//Surfefile_From_Shadow* surG = new Surfefile_From_Shadow("G_shadow03.dat");
@@ -138,18 +140,23 @@ Furion::Furion(int rank1, int size1)
 	Beam* b2 = source->beam_out(); 
 	Beam b3 = b2->translate(186); //delete b2;
 
-	Furion_plane_Mirror = new Furion_Plane_Mirror(&b3, 0., 0., 90., 12.e-3, surfM1, grating);
-	Furion_plane_Mirror->run(&b3, 0., 0., 90., 12.e-3, surfM1, grating);
-	Beam b5 = Furion_plane_Mirror->beam_out->translate(10);
+	//Furion_plane_Mirror = new Furion_Plane_Mirror(&b3, 0., 0., 90., 12.e-3, surfM1, grating);
+	//Furion_plane_Mirror->run(&b3, 0., 0., 90., 12.e-3, surfM1, grating);
+	//Beam b5 = Furion_plane_Mirror->beam_out->translate(10);
 	
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			cout << b3.field[i][j] << "  ";
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			//cout << b5.field[i][j] << "  ";
 		}
-		cout << endl;
+		//cout << endl;
 	}
+
+	Furion_cylinder_ellipse_Mirror = new Furion_Cylinder_Ellipse_Mirror(&b3, 0., 0., 270., 12.e-3, no_surfe, 196, 98, grating, 0);
+	Furion_cylinder_ellipse_Mirror->run(&b3, 0., 0., 270., 12.e-3, no_surfe, 196, 98, grating, 0);
+
+	cout << Furion_cylinder_ellipse_Mirror->beam_out->X[0][0] << endl;
+	//Beam b6 = 
+	//cout << boost::math::fabs(std::complex(3, 100)) << endl;
 
 	//delete this->Furion_plane_Mirror;
 
@@ -161,6 +168,196 @@ Furion::Furion(int rank1, int size1)
 Furion::~Furion()
 {
 	cout << "Furion的析构" << endl;
+}
+
+void Furion_NS::reshape(double** output, double* input, int x, int y)
+{
+	for (int i = 0; i < x; ++i)
+	{
+		for (int j = 0; j < y; ++j)
+		{
+			int index = i + j * x;
+			output[i][j] = input[index];
+		}
+	}
+}
+
+void Furion_NS::interp2(double* Vq, double* X, double* Y, double** V, double* x, double* y, int n, int nx, int ny, string Type)
+{
+	const gsl_interp2d_type* T;
+	if (Type == "liner") {
+		T = gsl_interp2d_bilinear;
+	}
+	else if (Type == "cubic")
+	{
+		T = gsl_interp2d_bicubic;
+	}
+	else
+	{
+		cout << Type << " interpolation type does not exist, you can select: liner and cubic" << endl;
+		exit(0);
+	}
+	//const size_t nx = this->numRows;
+	//const size_t ny = this->numCols;
+
+	double* za = new double[nx * ny];
+
+
+	gsl_spline2d* spline = gsl_spline2d_alloc(T, nx, ny);
+	gsl_interp_accel* xacc = gsl_interp_accel_alloc();
+	gsl_interp_accel* yacc = gsl_interp_accel_alloc();
+
+	/* set z grid values */
+	for (int i = 0; i < nx; i++)
+	{
+		for (int j = 0; j < ny; j++)
+		{
+			gsl_spline2d_set(spline, za, i, j, V[i][j]);
+		}
+	}
+
+	/* initialize interpolation */
+	gsl_spline2d_init(spline, Y, X, za, nx, ny);
+
+	/* interpolate N values in x and y and print out grid for plotting */
+	for (int i = 0; i < n * n; i++)
+	{
+		Vq[i] = gsl_spline2d_eval(spline, y[i], x[i], xacc, yacc);
+		//cout << x[i] << "  ";
+	}
+	//cout << endl;
+
+	gsl_spline2d_free(spline);
+	gsl_interp_accel_free(xacc);
+	gsl_interp_accel_free(yacc);
+
+	destory_1d(za);
+}
+
+void Furion_NS::interp2_1(double* Vq, double* X, double* Y, double* V, double* x, double* y, int n, int nx, int ny, string Type)
+{
+	const gsl_interp2d_type* T;
+	if (Type == "liner") {
+		T = gsl_interp2d_bilinear;
+	}
+	else if (Type == "cubic")
+	{
+		T = gsl_interp2d_bicubic;
+	}
+	else
+	{
+		cout << Type << " interpolation type does not exist, you can select: liner and cubic" << endl;
+		exit(0);
+	}
+	//const size_t nx = this->numRows;
+	//const size_t ny = this->numCols;
+
+	double* za = new double[nx * ny];
+
+
+	gsl_spline2d* spline = gsl_spline2d_alloc(T, nx, ny);
+	gsl_interp_accel* xacc = gsl_interp_accel_alloc();
+	gsl_interp_accel* yacc = gsl_interp_accel_alloc();
+
+	/* set z grid values */
+	for (int i = 0; i < nx; i++)
+	{
+		for (int j = 0; j < ny; j++)
+		{
+			gsl_spline2d_set(spline, za, i, j, V[i * ny + j]);
+		}
+		
+	}
+	//exit(0);
+
+	double xx[5] = { -0.002,-0.001,0,0.001,0.002 };
+	double yy[5] = {-0.002,-0.001,0,0.001,0.002};
+
+	/* initialize interpolation */
+	gsl_spline2d_init(spline, Y, X, za, nx, ny);
+	//exit(0);
+
+	/* interpolate N values in x and y and print out grid for plotting */
+	for (int i = 0; i < nx; i++)
+	{
+		for (int j = 0; j < ny; j++)
+		{
+			Vq[i * nx + j] = gsl_spline2d_eval(spline, y[i], x[j], xacc, yacc);
+		}
+	}
+	//exit(0);
+	gsl_spline2d_free(spline);
+	gsl_interp_accel_free(xacc);
+	gsl_interp_accel_free(yacc);
+
+	destory_1d(za);
+}
+
+void Furion_NS::linspace(double* x, double min, double max, int N)
+{
+	double step = (max - min) / (N - 1);
+	for (int i = 0; i < N; i++)
+	{
+		x[i] = min + i * step;
+	}
+}
+
+//散点插值，在数据范围外插值失效，待改进
+void Furion_NS::scatteredInterpolant(double* result, double* X, double* Y, double* X_, double* Y_, double* value, int N)
+{
+#ifdef CGAL_INTER
+	typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+	typedef CGAL::Delaunay_triangulation_2<K>                   Delaunay_triangulation;
+	typedef CGAL::Interpolation_traits_2<K>                     Traits;
+	typedef K::FT                                               Coord_type;
+	typedef K::Point_2                                          Point;
+	typedef std::map<Point, Coord_type, K::Less_xy_2>         Coord_map;
+	typedef CGAL::Data_access<Coord_map>                      Value_access;
+
+	Delaunay_triangulation T;
+	Coord_map value_function;
+
+	int N2 = N * N;
+	for (int i = 0; i < N2; ++i)
+	{
+		K::Point_2 p(X_[i], Y_[i]);
+		T.insert(p);
+		value_function.insert(std::make_pair(p, value[i]));
+	}
+
+	double X_min = X_[0];
+	double X_max = X_[N2];
+	double Y_min = Y_[0];
+	double Y_max = Y_[N2];
+
+	for (int i = 0; i < N2; ++i)
+	{
+		Coord_type res;
+		if (X[i] > X_min && X[i] < X_max && Y[i] > Y_min && Y[i] > Y_[0] < Y_max)
+		{
+			K::Point_2 p(X[i], Y[i]);
+			std::vector<std::pair<Point, Coord_type> > coords;
+			Coord_type norm = CGAL::natural_neighbor_coordinates_2(T, p, std::back_inserter(coords)).second;
+			res = CGAL::linear_interpolation(coords.begin(), coords.end(), norm, Value_access(value_function));
+			result[(i % N) * N + int(i / N)] = CGAL::to_double(res);
+		}
+		else
+		{
+			result[(i % N) * N + int(i / N)] = value[i];
+		}
+	}
+
+#else
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			result[i + j * N] = value[i * N + j];
+		}
+	}
+
+#endif
+
 }
 
 //ofstream fileout("data.dat");

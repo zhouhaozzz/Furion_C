@@ -3,7 +3,7 @@
 using namespace Furion_NS;
 
 W_Oe::W_Oe(Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, Grating* grating)
-    : beam_in(beam_in), grating(grating), surface(surface), theta(theta), chi(chi), beam_out(nullptr), Cff(0), N(beam_in->N), ds(ds), di(di)
+    : beam_in(beam_in), grating(grating), surface(surface), theta(theta), chi(chi), beam_out(nullptr), Cff(0), N(beam_in->N), ds(ds), di(di), N2(N*N)
 {
     cout << "W_Oe 初始化" << endl;
 
@@ -16,7 +16,7 @@ W_Oe::~W_Oe()
     delete gbeam_in;
     delete grating;
     delete surface;
-    delete g_mirror;
+    //delete g_mirror;
     cout << "W_Oe 的析构" << endl;
 }
 
@@ -26,26 +26,38 @@ void W_Oe::reflect(Beam* beam_in, double ds, double di, double chi, double theta
 
     create_g_beam();
 
-    tracing();
+    string mirror = tracing();
 
-    double* delta_h = new double[N * N];
+    double* delta_h = new double[this->N2];
+    double* phase_s = new double[this->N2];
 
-    this->surface->value(delta_h, g_mirror->Z2, g_mirror->X2, N);
-
-    double* phase_s = new double[N * N];
-
-    for (int i = 0; i < N * N; i++)
+    if (mirror == "Furion_Plane_Mirror")
     {
-        phase_s[i] = - 2 * 2 * _Pi / this->beam_in->wavelength * delta_h[i] * g_mirror->cos_Alpha[i];
+        this->surface->value(delta_h, this->g_mirror->Z2, this->g_mirror->X2, N);
+        for (int i = 0; i < this->N2; i++)
+        {
+            phase_s[i] = -2 * 2 * _Pi / this->beam_in->wavelength * delta_h[i] * g_mirror->cos_Alpha[i];
+        }
+    }
+    else if (mirror == "Furion_Cylinder_Ellipse_Mirror")
+    {
+        this->surface->value(delta_h, this->g_FCE_mirror->Z2, this->g_FCE_mirror->X2, N*N);
+        for (int i = 0; i < this->N2; i++)
+        {
+            phase_s[i] = -2 * 2 * _Pi / this->beam_in->wavelength * delta_h[i] * g_FCE_mirror->cos_Alpha[i];
+            //cout << phase_s[i] << endl;
+        }
+        //cout << endl;
     }
 
     create_w_beam(phase_s);
 }
 
-void W_Oe::tracing()
+std::string W_Oe::tracing()
 {
     cout << "G_Furion_ellipsoid_MirrorW_Oe的tracing" << endl;
 
+    return ("w_oe");
 }
 
 void W_Oe::create_g_beam()
@@ -67,7 +79,9 @@ void W_Oe::create_g_beam()
         {
             optical_path[i][j] = Phase_field[i][j] / (Pi2)*beam_in->wavelength;
             beam_in->phase_field[i][j] = Phase_field[i][j];
+            //cout << Phase_field[i][j] << " ";
         }
+        //cout << endl;
     }
 
     destory_2d(Phase_field, N);
@@ -82,10 +96,10 @@ void W_Oe::create_g_beam()
     gradient(Fx, Fy, optical_path, dx, dy, N);
     destory_2d(optical_path, N);
 
-    create_1d(beam_in->XX, Furion::n);
-    create_1d(beam_in->YY, Furion::n);
-    double* phi = new double[Furion::n];
-    double* psi = new double[Furion::n];
+    create_1d(beam_in->XX, this->N2);
+    create_1d(beam_in->YY, this->N2);
+    double* phi = new double[this->N2];
+    double* psi = new double[this->N2];
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
@@ -100,7 +114,7 @@ void W_Oe::create_g_beam()
     destory_2d(Fx, N);
     destory_2d(Fy, N);
 
-    gbeam_in = new G_Beam(beam_in->XX, beam_in->YY, phi, psi, beam_in->wavelength, Furion::n);
+    gbeam_in = new G_Beam(beam_in->XX, beam_in->YY, phi, psi, beam_in->wavelength, this->N2);
 }
 
 void W_Oe::create_w_beam(double* s_phase)

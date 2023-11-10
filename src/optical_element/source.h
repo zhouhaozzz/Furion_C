@@ -28,7 +28,6 @@ namespace Furion_NS
         ~Source();
 
         Beam* beam_out();
-        void linspace(double* x, double min, double max, int N);
     };
 }
 

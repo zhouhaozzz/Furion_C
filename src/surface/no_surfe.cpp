@@ -14,6 +14,7 @@ No_Surfe::~No_Surfe()
 
 void No_Surfe::value(double* Vq, double* X, double* Y, int n)
 {
+    cout << "No_Surfe de value" << endl;
     for (int i = 0; i < n; i++) 
     {
         Vq[i] = 0;

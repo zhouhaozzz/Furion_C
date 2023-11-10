@@ -1,5 +1,6 @@
 #add_compile_definitions(Geometric)
 add_compile_definitions(WAVE)
+#add_compile_definitions(CGAL_INTER)
 
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/display" DIR_SOURCE_DISPLAY)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/furion_scri" DIR_SOURCE_FUR_SCRI)
@@ -10,7 +11,10 @@ aux_source_directory("${PROJECT_SOURCE_DIR}/src/surface" DIR_SOURCE_SURFACE)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src/xop" DIR_SOURCE_XOP)
 aux_source_directory("${PROJECT_SOURCE_DIR}/src" DIR_SOURCE_SRC)
 
-#install(FILES ${GSL_HEADER_PATHS} DESTINATION include/gsl)
+include_directories(C:/software/C_library/local/boost_1_79_0/)
+LINK_DIRECTORIES(C:/software/C_library/local/boost_1_79_0/lib64-msvc-14.3/)
+
+find_package(CGAL REQUIRED)
 
 
 # 指定生成目标
@@ -25,6 +29,7 @@ add_executable( Furion
                 ${DIR_SOURCE_SRC}
               ) 
 
+target_link_libraries(Furion CGAL::CGAL)
 #target_link_libraries(Furion MPI::MPI_CXX)
 
 message(STATUS "DISPLAY_H: " ${DISPLAY_H})
@@ -35,6 +40,7 @@ message(STATUS "PROPAGATION_H: " ${PROPAGATION_H})
 message(STATUS "SURFACE_H: " ${SURFACE_H})
 message(STATUS "XOP_H: " ${XOP_H})
 message(STATUS "SRC_H: " ${SRC_H})
+message(STATUS "catkin_INCLUDE_DIRS" ${catkin_INCLUDE_DIRS})
 
 target_include_directories(Furion PRIVATE
                            ${DISPLAY_H}
@@ -46,6 +52,7 @@ target_include_directories(Furion PRIVATE
                            ${XOP_H}
                            ${SRC_H}
                            ${catkin_INCLUDE_DIRS}
+                           #${Boost_INCLUDE_DIRS}
                            )
 
 target_link_libraries(${PROJECT_NAME}
@@ -55,6 +62,11 @@ target_link_libraries(${PROJECT_NAME}
                       libfftw3f-3.dll
                       libfftw3l-3.dll
 )
+
+
+
+
+
 
 install(TARGETS Furion RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin)
 

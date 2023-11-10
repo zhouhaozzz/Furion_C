@@ -3,6 +3,8 @@
 #ifndef FUR_FURION_H_
 #define FUR_FURION_H_
 
+//#define BOOST_ALL_DYN_LINK
+
 #include <iostream>
 #include <math.h>
 #include <fstream>
@@ -17,6 +19,26 @@
 #include <cmath>
 #include <random>
 #include <complex>
+#include <iterator>
+#include <utility>
+
+#include <gsl/gsl_math.h>
+#include <gsl/gsl_interp2d.h>
+#include <gsl/gsl_spline2d.h>
+#include <gsl/gsl_fft_complex.h>
+#include <fftw3.h>
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_complex.h>
+#include <gsl/gsl_complex_math.h>
+
+#ifdef CGAL_INTER
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Interpolation_traits_2.h>
+#include <CGAL/natural_neighbor_coordinates_2.h>
+#include <CGAL/interpolation_functions.h>
+#endif
+
 
 //#include <mpi.h>
 
@@ -64,6 +86,7 @@ namespace Furion_NS
         class Beam* beam;
         class No_Surfe* no_surfe;
         class Furion_Plane_Mirror* Furion_plane_Mirror;
+        class Furion_Cylinder_Ellipse_Mirror* Furion_cylinder_ellipse_Mirror;
 
         size_t i = 0;
         const static int N = 5;
@@ -101,6 +124,16 @@ namespace Furion_NS
             data[i] = new TYPE[N];
         }
     }
+
+    void interp2(double* Vq, double* X, double* Y, double** V, double* x, double* y, int n, int nx, int ny, string Type);
+    void interp2_1(double* Vq, double* X, double* Y, double* V, double* x, double* y, int n, int nx, int ny, string Type);
+    void reshape(double** output, double* input, int x, int y);
+    void scatteredInterpolant(double* result, double* X, double* Y, double* X_, double* Y_, double* value, int N);
+    void linspace(double* x, double min, double max, int N);
+
+
+
+
 }
 
 #endif

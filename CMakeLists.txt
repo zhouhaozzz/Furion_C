@@ -6,21 +6,37 @@ cmake_minimum_required(VERSION 3.26)
 project(Furion)
 #set(Furion "CMake_Project")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
 
+#include_directories(C:/software/C_library/eigen-3.4.0)
 
-include_directories(C:/software/C_library/eigen-3.4.0)
-include_directories(C:/software/C_library/boost_1.79.0/include/boost-1_79)
 include_directories(C:/software/DEV/vcpkg/packages/gsl_x64-windows/include)
+LINK_DIRECTORIES(C:/software/DEV/vcpkg/packages/gsl_x64-windows/lib)
+LINK_DIRECTORIES(C:/software/DEV/vcpkg/packages/gsl_x64-windows/bin)
+
 include_directories(C:/software/C_library/fftw-3.3.5)
+LINK_DIRECTORIES(C:/software/C_library/fftw-3.3.5)
 
 #include_directories(C:/software/C_library/MPI/Include)
 include_directories(${CMAKE_SOURCE_DIR})
 
-LINK_DIRECTORIES(C:/software/DEV/vcpkg/packages/gsl_x64-windows/lib)
-LINK_DIRECTORIES(C:/software/DEV/vcpkg/packages/gsl_x64-windows/bin)
-LINK_DIRECTORIES(C:/software/C_library/fftw-3.3.5)
+#include_directories(C:/software/C_library/boost_1.79.0/include/)
+#LINK_DIRECTORIES(C:/software/C_library/boost_1.79.0/lib)
+
+
+
+
+#include_directories(C:/software/C_library/CGAL/CGAL-5.6/include/)
+#include_directories(C:/software/C_library/CGAL/CGAL-5.6/auxiliary/gmp/include/)
+
+#LINK_DIRECTORIES(C:/software/C_library/CGAL/CGAL-5.6/auxiliary/gmp/lib)
+
+
 
 
 # include 头文件
@@ -50,4 +66,7 @@ set(SRC_H     "${CMAKE_SOURCE_DIR}/src")
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 
+if (CMAKE_VERSION VERSION_GREATER 3.12)
+  set_property(TARGET Furion PROPERTY CXX_STANDARD 20)
+endif()
 

@@ -5,6 +5,8 @@
 
 #include "Furion.h"
 #include "Furion_fresnel_spectralh.h"
+//#include <boost/math/interpolators/barycentric_rational.hpp>
+//#include <boost/math/interpolators/>
 
 namespace Furion_NS
 {
@@ -31,10 +33,10 @@ namespace Furion_NS
 
         Beam translate(double distance);
         void plot_sigma(double distance, int rank1);
-        double Max(double* X, int n);
-        double Min(double* X, int n);
         //void creat_Furion_plot_sigma(int rank1);
     };
+    double Max(double* X, int n);
+    double Min(double* X, int n);
 }
 
 #endif

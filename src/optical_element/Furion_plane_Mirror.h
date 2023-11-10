@@ -16,11 +16,10 @@ namespace Furion_NS
         ~Furion_Plane_Mirror();
 
         void run(Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, Grating* grating);
-        void tracing() override;
+        std::string tracing() override;
         void create_w_beam(double* s_phase) override;
     };
 
-    void reshape(double** output, double* input, int x, int y);
 }
 
 #endif

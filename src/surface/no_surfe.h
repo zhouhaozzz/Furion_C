@@ -18,8 +18,8 @@ namespace Furion_NS
         //vector<vector<double>>* sag_Y = new std::vector<std::vector<double>>;
         //vector<vector<double>>* V = new std::vector<std::vector<double>>;
 
-        double** meri_X;
-        double** sag_Y;
+        double* meri_X;
+        double* sag_Y;
         double** V;
         const char* adress;
 
