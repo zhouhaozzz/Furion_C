@@ -28,8 +28,10 @@ void W_Oe::reflect(Beam* beam_in, double ds, double di, double chi, double theta
 
     string mirror = tracing();
 
-    double* delta_h = new double[this->N2];
-    double* phase_s = new double[this->N2];
+    //double* delta_h = new double[this->N2];
+    //double* phase_s = new double[this->N2];
+    std::vector<double> delta_h(this->N2);
+    std::vector<double> phase_s(this->N2);
 
     if (mirror == "Furion_Plane_Mirror")
     {
@@ -64,17 +66,21 @@ void W_Oe::create_g_beam()
 {
     cout << "W_Oe de create_g_beam" << endl;
 
-    double** Phase_field;
-    create_2d(Phase_field, N);
+    //double** Phase_field;
+    //create_2d(Phase_field, N);
+    std::vector<std::vector<double> > Phase_field(N, std::vector<double>(N));
     f_p_u2.Furion_phase_unwrap2(Phase_field, this->beam_in->field, N);
     
-    double** optical_path;
-    create_2d(optical_path, N);
-    create_2d(beam_in->phase_field, N);
+    //double** optical_path;
+    //create_2d(optical_path, N);
+    //create_2d(beam_in->phase_field, N);
+    std::vector<std::vector<double> > optical_path(N, std::vector<double>(N));
+    this->beam_in->phase_field = std::vector<std::vector<double> >(N, std::vector<double>(N));
+
     double Pi2 = 2 * _Pi;
     for (int i = 0; i < N; i++) 
     { 
-        optical_path[i] = new double[N];
+        //optical_path[i] = new double[N];
         for (int j = 0; j < N; j++)
         {
             optical_path[i][j] = Phase_field[i][j] / (Pi2)*beam_in->wavelength;
@@ -84,22 +90,32 @@ void W_Oe::create_g_beam()
         //cout << endl;
     }
 
-    destory_2d(Phase_field, N);
+    //destory_2d(Phase_field, N);
+    Phase_field.clear();
 
     double dx = mean_diff(beam_in->X, N, 0);
     double dy = mean_diff(beam_in->Y, N, 1);
 
-    double** Fx;
-    double** Fy;
-    create_2d(Fx, N);
-    create_2d(Fy, N);
-    gradient(Fx, Fy, optical_path, dx, dy, N);
-    destory_2d(optical_path, N);
+    //double** Fx;
+    //double** Fy;
+    //create_2d(Fx, N);
+    //create_2d(Fy, N);
+    std::vector<std::vector<double> > Fx(N, std::vector<double>(N));
+    std::vector<std::vector<double> > Fy(N, std::vector<double>(N));
 
-    create_1d(beam_in->XX, this->N2);
-    create_1d(beam_in->YY, this->N2);
-    double* phi = new double[this->N2];
-    double* psi = new double[this->N2];
+    gradient(Fx, Fy, optical_path, dx, dy, N);
+    //destory_2d(optical_path, N);
+    optical_path.clear();
+
+    //create_1d(beam_in->XX, this->N2);
+    //create_1d(beam_in->YY, this->N2);
+    //double* phi = new double[this->N2];
+    //double* psi = new double[this->N2];
+    this->beam_in->XX = std::vector<double>(N2);
+    this->beam_in->YY = std::vector<double>(N2);
+    std::vector<double> phi(N2);
+    std::vector<double> psi(N2);
+
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
@@ -111,13 +127,15 @@ void W_Oe::create_g_beam()
         }
     }
 
-    destory_2d(Fx, N);
-    destory_2d(Fy, N);
+    //destory_2d(Fx, N);
+    //destory_2d(Fy, N);
+    Fx.clear();
+    Fy.clear();
 
     gbeam_in = new G_Beam(beam_in->XX, beam_in->YY, phi, psi, beam_in->wavelength, this->N2);
 }
 
-void W_Oe::create_w_beam(double* s_phase)
+void W_Oe::create_w_beam(std::vector<double>& s_phase)
 {
     cout << "W_Oe de create_g_beam" << endl;
 
@@ -129,7 +147,7 @@ void W_Oe::create_w_beam(double* s_phase)
 
 }
 
-double W_Oe::mean_diff(double** X, int N, int n)
+double W_Oe::mean_diff(std::vector<std::vector<double> >& X, int N, int n)
 {
     double dx = 0;
 
@@ -158,7 +176,7 @@ double W_Oe::mean_diff(double** X, int N, int n)
     }
 }
 
-void W_Oe::gradient(double** Fx, double** Fy, double** optical_path, double dx, double dy, int N) 
+void W_Oe::gradient(std::vector<std::vector<double> >& Fx, std::vector<std::vector<double> >& Fy, std::vector<std::vector<double> >& optical_path, double dx, double dy, int N)
 {
     // Fx
     for (int i = 0; i < N; i++) {

@@ -30,23 +30,27 @@ std::string Furion_Plane_Mirror::tracing()
     return ("Furion_Plane_Mirror");
 }
 
-void Furion_Plane_Mirror::create_w_beam(double* s_phase)
+void Furion_Plane_Mirror::create_w_beam(std::vector<double>& s_phase)
 {
     if (this->grating->m == 0)
     {
-        double* Phase = new double[this->N2];
+        //double* Phase = new double[this->N2];
+        std::vector<double> Phase(this->N2);
         for (int i = 0; i < this->N2; i++)
         {
             Phase[i] = this->g_mirror->Phase[i] + s_phase[i];
         }
         
-        double** phase1;
-        create_2d(phase1, N);
+        //double** phase1;
+        //create_2d(phase1, N);
+        std::vector<std::vector<double> > phase1(N, std::vector<double>(N));
         Furion_NS::reshape(phase1, Phase,N,N);
-        destory_1d(Phase);
+        //destory_1d(Phase);
+        Phase.clear();
 
-        std::complex<double>** Field_new;
-        create_2d(Field_new, N);
+        //std::complex<double>** Field_new;
+        //create_2d(Field_new, N);
+        std::vector<std::vector<std::complex<double>> > Field_new(N, std::vector<std::complex<double>>(N));
         for (int i = 0; i < N; i++)
         {
             for (int j = 0; j < N; j++)
@@ -54,7 +58,8 @@ void Furion_Plane_Mirror::create_w_beam(double* s_phase)
                 Field_new[i][j] = std::abs(this->beam_in->field[i][j]) * std::exp(std::complex<double>(0, this->beam_in->phase_field[i][j]+phase1[i][j]));
             }
         }
-        destory_2d(phase1, N);
+        //destory_2d(phase1, N);
+        phase1.clear();
         
         this->beam_out = new Beam(this->beam_in->X, this->beam_in->Y, Field_new, this->beam_in->wavelength, N);
     }

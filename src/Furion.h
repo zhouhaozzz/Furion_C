@@ -81,12 +81,7 @@ namespace Furion_NS
 #endif // Geometric
 
 #ifdef WAVE
-        class Grating* grating;            // Grate setting
-        class Source* source;
-        class Beam* beam;
-        class No_Surfe* no_surfe;
-        class Furion_Plane_Mirror* Furion_plane_Mirror;
-        class Furion_Cylinder_Ellipse_Mirror* Furion_cylinder_ellipse_Mirror;
+
 
         size_t i = 0;
         const static int N = 5;
@@ -125,12 +120,23 @@ namespace Furion_NS
         }
     }
 
-    void interp2(double* Vq, double* X, double* Y, double** V, double* x, double* y, int n, int nx, int ny, string Type);
-    void interp2_1(double* Vq, double* X, double* Y, double* V, double* x, double* y, int n, int nx, int ny, string Type);
-    void reshape(double** output, double* input, int x, int y);
-    void scatteredInterpolant(double* result, double* X, double* Y, double* X_, double* Y_, double* value, int N);
-    void linspace(double* x, double min, double max, int N);
+    //std::vector<std::vector<double>> furion_chche = std::vector<std::vector<double>>(Furion::N, std::vector<double>(Furion::N));
 
+
+    void interp2(std::vector<double>& Vq, std::vector<double>& X, std::vector<double>& Y, std::vector<std::vector<double> >& V, std::vector<double>& x, std::vector<double>& y, int n, int nx, int ny, string Type);
+    void interp2_1(std::vector<double>& Vq, std::vector<double>& X, std::vector<double>& Y, std::vector<double>& V, std::vector<double>& x, std::vector<double>& y, int n, int nx, int ny, string Type);
+    void reshape(std::vector<std::vector<double> >& output, std::vector<double>& input, int x, int y);
+    inline int point_inside_triangle(double x[4], double y[4]);
+
+    void scatteredInterpolant(std::vector<double>& result, std::vector<double>& X, std::vector<double>& Y, std::vector<double>& X_, std::vector<double>& Y_, std::vector<double>& value, int N);
+    void scatteredInterpolant_2d_complex(std::vector<std::vector<std::complex<double>> >& result, std::vector<double>& X, std::vector<double>& Y, std::vector<std::vector<double> >& X_, std::vector<std::vector<double> >& Y_, std::vector<std::vector<std::complex<double>> >& value, int N);
+    void linspace(std::vector<double>& x, double min, double max, int N);
+    double Max(std::vector<double>& X, int n);
+    double Min(std::vector<double>& X, int n);
+    void FFTW2(std::vector<std::vector<std::complex<double>> >& output, std::vector<std::vector<std::complex<double>> >& field, int N);
+    void iFFTW2(std::vector<std::vector<std::complex<double>> >& output, std::vector<std::vector<std::complex<double>> >& field, int N);
+    void FFTshift(std::vector<std::vector<std::complex<double>> >& output, std::vector<std::vector<std::complex<double>> >& field, int N);
+    void iFFTshift(std::vector<std::vector<std::complex<double>> >& output, std::vector<std::vector<std::complex<double>> >& field, int N);
 
 
 

@@ -12,7 +12,7 @@ Furion_Rotz::~Furion_Rotz()
     
 }
 
-void Furion_Rotz::furion_rotz(double t, double *matrix)
+void Furion_Rotz::furion_rotz(double t, std::vector<double>& matrix)
 {
     double ct = cos(t * _Pi / 180.0);
     double st = sin(t * _Pi / 180.0);

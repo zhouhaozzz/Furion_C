@@ -13,7 +13,7 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
     int Count = 0;
     for (int i = 0; i < n; i++)
     {
-        if (sqrt((beam_in->XX[i] - center_x) * (beam_in->XX[i] - center_x) + (beam_in->YY[i] - center_y) * (beam_in->YY[i] - center_y)) < r)
+        if (std::sqrt((beam_in->XX[i] - center_x) * (beam_in->XX[i] - center_x) + (beam_in->YY[i] - center_y) * (beam_in->YY[i] - center_y)) < r)
         {
             beam_out->XX[Count] = beam_in->XX[i];
             beam_out->YY[Count] = beam_in->YY[i];
@@ -28,10 +28,10 @@ G_Furion_Hole::G_Furion_Hole(G_Beam* beam_in, double center_x, double center_y, 
 
     for (int i = Count; i < n; i++)
     {
-        beam_out->XX[i] = 0;
-        beam_out->YY[i] = 0;
-        beam_out->phi[i] = 0;
-        beam_out->psi[i] = 0;
+        beam_out->XX.pop_back();
+        beam_out->YY.pop_back();
+        beam_out->phi.pop_back();
+        beam_out->psi.pop_back();
     }
 }
 

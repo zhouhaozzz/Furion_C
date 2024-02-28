@@ -17,8 +17,9 @@ namespace Furion_NS
         G_Ellipsoid(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating);
         ~G_Ellipsoid();
 
-        void intersection(double* T) override;
-        void normal(double *Nx, double *Ny, double *Nz) override;
+        void intersection(std::vector<double>& T) override;
+        void normal(std::vector<double>& Nx, std::vector<double>& Ny, std::vector<double>& Nz) override;
+
     };
 }
 

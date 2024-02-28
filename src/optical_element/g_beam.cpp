@@ -2,18 +2,18 @@
 
 using namespace Furion_NS;
 
-G_Beam::G_Beam(double* XX, double* YY, double* phi, double* psi, double lambda, int n) :
-    XX(XX), YY(YY), phi(phi), psi(psi), n(n), lambda(lambda)
+G_Beam::G_Beam(std::vector<double>& XX, std::vector<double>& YY, std::vector<double>& phi, std::vector<double>& psi, double lambda, int n) :
+    n(n), lambda(lambda), XX(XX), YY(YY), phi(phi), psi(psi)
 {
     cout << "G_Beam的初始化" << endl;
 }
 
 G_Beam::~G_Beam()
 {
-    destory_1d(this->XX);
-    destory_1d(this->YY);
-    destory_1d(this->psi);
-    destory_1d(this->phi);
+    //destory_1d(this->XX);
+    //destory_1d(this->YY);
+    //destory_1d(this->psi);
+    //destory_1d(this->phi);
     cout << "G_Beam的析构" << endl;
 
 }

@@ -12,7 +12,7 @@ Furion_Rotx::~Furion_Rotx()
     
 }
 
-void Furion_Rotx::furion_rotx(double t, double *matrix)
+void Furion_Rotx::furion_rotx(double t, std::vector<double>& matrix)
 {
     double ct = cos(t);
     double st = sin(t);

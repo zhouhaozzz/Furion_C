@@ -14,23 +14,27 @@ G_Ellipsoid::~G_Ellipsoid()
     //delete ct;
 }
 
-void G_Ellipsoid::intersection(double* T)
+void G_Ellipsoid::intersection(std::vector<double>& T)
 {
     int n = this->n;
 
-    double *A = new double[this->n];
-    double *B = new double[this->n];
-    double *C = new double[this->n];
+    //double *A = new double[this->n];
+    //double *B = new double[this->n];
+    //double *C = new double[this->n];
+    //std::vector<double> A(n);
+    //std::vector<double> B(n);
+    //std::vector<double> C(n);
     double a2 = this->a * this->a;
     double b2 = this->b * this->b;
     double ab2 = a2*b2;
+    double A, B, C;
 
     for (int i = 0; i < n; i++) 
     {
-        A[i] = b2*this->N1[i]*this->N1[i] + a2*this->M1[i]*this->M1[i] + a2 * this->M1[i] * this->L1[i];
-        B[i] = 2 * (b2*this->N1[i]*this->Z1[i] + a2*this->M1[i]*this->Y1[i] + a2 * this->L1[i] * this->X1[i]);
-        C[i] = a2*this->Y1[i]*this->Y1[i] + b2*this->Z1[i]*this->Z1[i] - ab2 + a2 * this->X1[i] * this->X1[i];
-        T[i] = (-B[i] + sqrt(B[i]*B[i] - 4*A[i]*C[i])) / (2*A[i]);
+        A = b2 * this->N1[i] * this->N1[i] + a2 * this->M1[i] * this->M1[i] + a2 * this->M1[i] * this->L1[i];
+        B = 2 * (b2 * this->N1[i] * this->Z1[i] + a2 * this->M1[i] * this->Y1[i] + a2 * this->L1[i] * this->X1[i]);
+        C = a2 * this->Y1[i] * this->Y1[i] + b2 * this->Z1[i] * this->Z1[i] - ab2 + a2 * this->X1[i] * this->X1[i];
+        T[i] = (-B + sqrt(B * B - 4 * A * C)) / (2 * A);
         this->T[i] = T[i];
 
         this->X2[i] = this->X1[i] + T[i]*this->L1[i];
@@ -39,12 +43,12 @@ void G_Ellipsoid::intersection(double* T)
     }
     cout << "G_EllipsoidµÄintersection" << endl;
 
-    destory_1d(A);
-    destory_1d(B);
-    destory_1d(C);
+    //destory_1d(A);
+    //destory_1d(B);
+    //destory_1d(C);
 }
 
-void G_Ellipsoid::normal(double *Nx, double *Ny, double *Nz)
+void G_Ellipsoid::normal(std::vector<double>& Nx, std::vector<double>& Ny, std::vector<double>& Nz)
 {
     int n = this->n;
     

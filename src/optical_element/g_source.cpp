@@ -6,10 +6,15 @@ using namespace Furion_NS;
 G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1) : beam_out(XX, YY, phi, psi, lambda, n)
 {
     cout << "G_Source的初始化" << endl;
-    this->XX = new double[beam_out.n];
-    this->YY = new double[beam_out.n];
-    this->phi = new double[beam_out.n];
-    this->psi = new double[beam_out.n];
+    //this->XX = new double[beam_out.n];
+    //this->YY = new double[beam_out.n];
+    //this->phi = new double[beam_out.n];
+    //this->psi = new double[beam_out.n];
+    this->XX = std::vector<double>(beam_out.n);
+    this->YY = std::vector<double>(beam_out.n);
+    this->phi = std::vector<double>(beam_out.n);
+    this->psi = std::vector<double>(beam_out.n);
+
 
     normrnd(this->XX, 0, sigma_beamsize, n, 1, rank1);// Normal random number
     normrnd(this->YY, 0, sigma_beamsize, n, 2, rank1);
@@ -21,14 +26,14 @@ G_Source::G_Source(double sigma_beamsize, double sigma_divergence, int n, double
 
 G_Source::~G_Source()
 {
-    destory_1d(XX);
-    destory_1d(YY);
-    destory_1d(psi);
-    destory_1d(phi);
+    //destory_1d(XX);
+    //destory_1d(YY);
+    //destory_1d(psi);
+    //destory_1d(phi);
     cout << "G_Source的析构" << endl;
 }
 
-void G_Source::normrnd(double* resultArray, double mu, double sigma_beamsize, int n, int n1, int rank1)
+void G_Source::normrnd(std::vector<double>& resultArray, double mu, double sigma_beamsize, int n, int n1, int rank1)
 {
     auto now = std::chrono::system_clock::now();
     auto duration = now.time_since_epoch();

@@ -3,16 +3,20 @@
 using namespace Furion_NS;
 
 Source::Source(double L, int N, double sigma, double wavelength)
-    : L(L), N(N), wavelength(wavelength), sigma(sigma), X(nullptr), Y(nullptr), field(nullptr), XX(nullptr), YY(nullptr)
+    : L(L), N(N), wavelength(wavelength), sigma(sigma) //, X(nullptr), Y(nullptr), field(nullptr), XX(nullptr), YY(nullptr)
 {
     cout << "Source的初始化" << endl;
-    double* x = new double[N];
+    //double* x = new double[N];
+    std::vector<double> x(this->N);
 
     Furion_NS::linspace(x, -this->L / 2, this->L / 2, this->N);
 
-    create_2d(this->X, N);
-    create_2d(this->Y, N);
-    create_2d(this->field, N);
+    //create_2d(this->X, N);
+    //create_2d(this->Y, N);
+    //create_2d(this->field, N);
+    this->X = std::vector<std::vector<double> >(N, std::vector<double>(N));
+    this->Y = std::vector<std::vector<double> >(N, std::vector<double>(N));
+    this->field = std::vector<std::vector<std::complex<double>> >(N, std::vector<std::complex<double>>(N));
 
     double imagPart = 0.0;
     double sigma2 = sigma * sigma;
@@ -26,24 +30,28 @@ Source::Source(double L, int N, double sigma, double wavelength)
         }
     }
 
-    destory_1d(x);
+    //destory_1d(x);
 }
 
 Source::~Source()
 {
-    destory_2d(this->X, N);
-    destory_2d(this->Y, N);
-    destory_2d(this->field, N);
-    destory_1d(this->XX);
-    destory_1d(this->YY);
+    //destory_2d(this->X, N);
+    //destory_2d(this->Y, N);
+    //destory_2d(this->field, N);
+    //destory_1d(this->XX);
+    //destory_1d(this->YY);
+    this->X.clear();
+    this->Y.clear();
+    this->field.clear();
+    this->XX.clear();
+    this->YY.clear();
     cout << "Source的析构" << endl;
-
 }
 
-Beam* Source::beam_out()
+Beam Source::beam_out()
 {
     //Beam beam;
-    Beam* beam = new Beam(this->X, this->Y, this->field, this->wavelength, this->N);
+    //Beam beam = Beam(this->X, this->Y, this->field, this->wavelength, this->N);
 
-    return beam;
+    return Beam(this->X, this->Y, this->field, this->wavelength, this->N);
 }

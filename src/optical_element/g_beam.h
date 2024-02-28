@@ -14,13 +14,17 @@ namespace Furion_NS
 
         double lambda;          //wave length
         int n;
-        double* XX = new double[Furion::n];
-        double* YY = new double[Furion::n];
-        double* psi = new double[Furion::n];
-        double* phi = new double[Furion::n];
+        //double* XX = new double[Furion::n];
+        //double* YY = new double[Furion::n];
+        //double* psi = new double[Furion::n];
+        //double* phi = new double[Furion::n];
+        std::vector<double> XX;
+        std::vector<double> YY;
+        std::vector<double> psi;
+        std::vector<double> phi;
 
 
-        G_Beam(double* XX, double* YY, double* phi, double* psi, double lambda, int n);
+        G_Beam(std::vector<double>& XX, std::vector<double>& YY, std::vector<double>& phi, std::vector<double>& psi, double lambda, int n);
         ~G_Beam();
 
         class Furion_Plot_Sigma f_p_s;

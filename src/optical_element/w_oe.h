@@ -11,6 +11,14 @@
 #include "Furion_phase_unwrap2.h"
 #include "g_Furion_plane_Mirror.h"
 #include "g_Furion_cylinder_ellipse_Mirror.h"
+#include "g_Furion_cyliner_parabolic_collimation_Mirror.h"
+#include "g_Furion_cyliner_parabolic_focus_Mirror.h"
+#include "g_Furion_ellipsoid_Mirror.h"
+#include "g_Furion_paraboid_collimation_Mirror.h"
+#include "g_Furion_paraboid_focus_Mirror.h"
+#include "g_Furion_cyliner_spherical_Mirror.h"
+#include "g_Furion_spherical_Mirror.h"
+#include "g_Furion_toroid_Mirror.h"
 
 namespace Furion_NS
 {
@@ -39,6 +47,14 @@ namespace Furion_NS
 
         G_Furion_Plane_Mirror* g_mirror;
         G_Furion_Cylinder_Ellipse_Mirror* g_FCE_mirror;
+        G_Furion_Cyliner_Parabolic_Collimation_Mirror* g_FCPC_mirror;
+        G_Furion_Cyliner_Parabolic_Focus_Mirror* g_FCPF_mirror;
+        G_Furion_ellipsoid_Mirror* g_FE_mirror;
+        G_Furion_Paraboid_Collimation_Mirror* g_FPC_mirror;
+        G_Furion_Paraboid_Focus_Mirror* g_FPF_mirror;
+        G_Furion_Cyliner_Spherical_Mirror* g_FCS_mirror;
+        G_Furion_Spherical_Mirror* g_FS_mirror;
+        G_Furion_Toroid_Mirror* g_FT_mirror;
 
         Furion_Phase_Unwrap2 f_p_u2;
 
@@ -48,9 +64,9 @@ namespace Furion_NS
         void reflect(Beam* beam_in, double ds, double di, double chi, double theta);
         virtual std::string tracing();
         void create_g_beam();
-        virtual void create_w_beam(double* s_phase);
-        double mean_diff(double** X, int N, int n);
-        void gradient(double** Fx, double** Fy, double** optical_path, double dx, double dy, int N);
+        virtual void create_w_beam(std::vector<double>& s_phase);
+        double mean_diff(std::vector<std::vector<double> >& X, int N, int n);
+        void gradient(std::vector<std::vector<double> >& Fx, std::vector<std::vector<double> >& Fy, std::vector<std::vector<double> >& optical_path, double dx, double dy, int N);
     };
 }
 

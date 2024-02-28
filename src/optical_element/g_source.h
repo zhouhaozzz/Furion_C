@@ -16,15 +16,19 @@ namespace Furion_NS
         class G_Beam beam_out;
         double lambda;          //wave length
         int n;
-        double* XX;
-        double* YY;
-        double* psi;
-        double* phi;
+        //double* XX;
+        //double* YY;
+        //double* psi;
+        //double* phi;
+        std::vector<double> XX;
+        std::vector<double> YY;
+        std::vector<double> psi;
+        std::vector<double> phi;
 
         G_Source(double sigma_beamsize, double sigma_divergence, int n, double lambda, int rank1);
         ~G_Source();
 
-        void normrnd(double* resultArray, double mu, double sigma_beamsize, int n, int n1, int rank1);
+        void normrnd(std::vector<double>& resultArray, double mu, double sigma_beamsize, int n, int n1, int rank1);
     };
 }
 

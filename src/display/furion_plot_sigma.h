@@ -14,7 +14,7 @@ namespace Furion_NS
         Furion_Plot_Sigma();
         ~Furion_Plot_Sigma();
 
-        void Furion_plot_sigma(double* X, double* Y, double* Phi, double* Psi, int rank1, int n);
+        void Furion_plot_sigma(std::vector<double>& X, std::vector<double>& Y, std::vector<double>& Phi, std::vector<double>& Psi, int rank1, int n);
         string inttoStr(int s);
     };
 }

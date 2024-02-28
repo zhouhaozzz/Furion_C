@@ -13,7 +13,7 @@ namespace Furion_NS
 
         Furion_Rotz();
         ~Furion_Rotz();
-        void furion_rotz(double t, double *matrix);
+        void furion_rotz(double t, std::vector<double>& matrix);
     };
 }
 

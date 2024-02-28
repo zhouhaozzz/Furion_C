@@ -18,15 +18,18 @@ namespace Furion_NS
         //vector<vector<double>>* sag_Y = new std::vector<std::vector<double>>;
         //vector<vector<double>>* V = new std::vector<std::vector<double>>;
 
-        double* meri_X;
-        double* sag_Y;
-        double** V;
+        //double* meri_X;
+        //double* sag_Y;
+        //double** V;
         const char* adress;
+        std::vector<double> meri_X;
+        std::vector<double> sag_Y;
+        std::vector<std::vector<double> > V;
 
         No_Surfe();
         ~No_Surfe();
 
-        virtual void value(double* Vq, double* X, double* Y, int n);
+        virtual void value(std::vector<double>& Vq, std::vector<double>& X, std::vector<double>& Y, int n);
     };
 }
 

@@ -17,9 +17,9 @@ namespace Furion_NS
         size_t numRows;
         size_t numCols;
 
-        void value(double* Vq, double* X, double* Y, int n) override;
+        void value(std::vector<double>& Vq, std::vector<double>& X, std::vector<double>& Y, int n) override;
         int CountLine(const char* filename);
-        void meshgrid(vector<vector<double>>* X, vector<vector<double>>* Y, const vector<double>& x, const std::vector<double>& y);
+        void meshgrid(std::vector<std::vector<double>>& X, std::vector<std::vector<double>>& Y, const std::vector<double>& x, const std::vector<double>& y);
     };
 }
 

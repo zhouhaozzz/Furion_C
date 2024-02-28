@@ -2,31 +2,39 @@
 
 using namespace Furion_NS;
 
-G_Cyliner_Parabolic_Focus::G_Cyliner_Parabolic_Focus(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+G_Cyliner_Parabolic_Focus::G_Cyliner_Parabolic_Focus(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r2, Grating* grating)
     : G_Oe(beam_in, ds, di, chi, theta, surface, grating)//, center(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
 {
     this->r2 = r2;
     this->p = r2 * (1 - cos(2 * theta));
+    this->T = std::vector<double>(Furion::n);
+    this->Nx = std::vector<double>(Furion::n);
+    this->Ny = std::vector<double>(Furion::n);
+    this->Nz = std::vector<double>(Furion::n);
     cout << "G_Cyliner_Parabolic_Focus 初始化" << endl;
     //run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
 }
 
 G_Cyliner_Parabolic_Focus::~G_Cyliner_Parabolic_Focus()
 {
-    destory_1d(this->T);
-    destory_1d(this->Nx);
-    destory_1d(this->Ny);
-    destory_1d(this->Nz);
+    //destory_1d(this->T);
+    //destory_1d(this->Nx);
+    //destory_1d(this->Ny);
+    //destory_1d(this->Nz);
+    T.clear();
+    Nx.clear();
+    Ny.clear();
+    Nz.clear();
     cout << "G_Cyliner_Parabolic_Focus 析构" << endl;
 }
 
-void G_Cyliner_Parabolic_Focus::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+void G_Cyliner_Parabolic_Focus::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r2, Grating* grating)
 {
     cout << "G_Cyliner_Parabolic_Focus的run" << endl;
     reflect(beam_in, ds, di, chi, theta);
 }
 
-void G_Cyliner_Parabolic_Focus::matrixMulti_GCPF(double* L2, double* M2, double* N2, double* matrix, double* L, double* M, double* N, double dx, double dy, int n)
+void G_Cyliner_Parabolic_Focus::matrixMulti_GCPF(std::vector<double>& L2, std::vector<double>& M2, std::vector<double>& N2, std::vector<double>& matrix, std::vector<double>& L, std::vector<double>& M, std::vector<double>& N, double dx, double dy, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -36,14 +44,16 @@ void G_Cyliner_Parabolic_Focus::matrixMulti_GCPF(double* L2, double* M2, double*
     }
 }
 
-void G_Cyliner_Parabolic_Focus::source_to_oe(double* X, double* Y, double ds, double* L, double* M, double* N)
+void G_Cyliner_Parabolic_Focus::source_to_oe(std::vector<double>& X, std::vector<double>& Y, double ds, std::vector<double>& L, std::vector<double>& M, std::vector<double>& N)
 {
     int n = this->n;
 
-    double* OS = new double[9];
+    //double* OS = new double[9];
+    std::vector<double> OS(9);
     f_rz.furion_rotz(this->chi, OS);
 
-    double* Z = new double[1];
+    //double* Z = new double[1];
+    std::vector<double> Z(1);
     Z[0] = -(ds + this->r2 - 0.5 * this->p);
     double dy = -this->r2 * sin(2 * this->theta);
 
@@ -51,35 +61,39 @@ void G_Cyliner_Parabolic_Focus::source_to_oe(double* X, double* Y, double ds, do
 
     matrixMulti(this->L1, this->M1, this->N1, OS, L, M, N, 0, n);
     
-    destory_1d(Z);
-    destory_1d(OS);
+    //destory_1d(Z);
+    //destory_1d(OS);
 
     cout << "G_Cyliner_Parabolic_Focus的source_to_oe" << endl;
 }
 
 
-void G_Cyliner_Parabolic_Focus::intersection(double* T)
+void G_Cyliner_Parabolic_Focus::intersection(std::vector<double>& T)
 {
     int n = Furion::n;
 
-    double* A = new double[Furion::n];
-    double* B = new double[Furion::n];
-    double* C = new double[Furion::n];
+    //double* A = new double[Furion::n];
+    //double* B = new double[Furion::n];
+    //double* C = new double[Furion::n];
+    //std::vector<double> A(n);
+    //std::vector<double> B(n);
+    //std::vector<double> C(n);
+    double A, B, C;
 
     for (int i = 0; i < n; i++)
     {
-        A[i] = this->M1[i] * this->M1[i];
-        B[i] = 2 * (this->N1[i] * this->p + this->M1[i] * this->Y1[i]);
-        C[i] = this->Y1[i] * this->Y1[i] + 2 * this->p * this->Z1[i];
-        T[i] = A[i];
+        A = this->M1[i] * this->M1[i];
+        B = 2 * (this->N1[i] * this->p + this->M1[i] * this->Y1[i]);
+        C = this->Y1[i] * this->Y1[i] + 2 * this->p * this->Z1[i];
+        T[i] = A;
 
-        if (A[i] == 0)
+        if (A == 0)
         {
             T[i] = (this->Y1[i] * this->Y1[i] + 2 * this->p * this->Z1[i]) / (-2 * this->p * this->N1[i]);
         }
         else
         {
-            T[i] = (-B[i] + sqrt(B[i] * B[i] - 4 * A[i] * C[i])) / (2 * A[i]);
+            T[i] = (-B + sqrt(B * B - 4 * A * C)) / (2 * A);
         }
         this->T[i] = T[i];
 
@@ -89,12 +103,12 @@ void G_Cyliner_Parabolic_Focus::intersection(double* T)
     }
     cout << "G_Cyliner_Parabolic_Focus的intersection" << endl;
     
-    destory_1d(A);
-    destory_1d(B);
-    destory_1d(C);
+    //destory_1d(A);
+    //destory_1d(B);
+    //destory_1d(C);
 }
 
-void G_Cyliner_Parabolic_Focus::normal(double* Nx, double* Ny, double* Nz)
+void G_Cyliner_Parabolic_Focus::normal(std::vector<double>& Nx, std::vector<double>& Ny, std::vector<double>& Nz)
 {
     int n = this->n;
 
@@ -115,7 +129,7 @@ void G_Cyliner_Parabolic_Focus::normal(double* Nx, double* Ny, double* Nz)
     cout << "G_Cyliner_Parabolic_Focus的normal" << endl;
 }
 
-void G_Cyliner_Parabolic_Focus::h_slope(double* h_slope, double* Y2)
+void G_Cyliner_Parabolic_Focus::h_slope(std::vector<double>& h_slope, std::vector<double>& Y2)
 {
     int n = this->n;
 

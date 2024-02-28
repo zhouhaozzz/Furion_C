@@ -18,16 +18,22 @@ namespace Furion_NS
         int N;
         double sigma;
 
-        double** X;
-        double** Y;
-        std::complex<double>** field;
-        double** XX;
-        double** YY;
+        //double** X;
+        //double** Y;
+        //std::complex<double>** field;
+        //double** XX;
+        //double** YY;
+
+        std::vector<std::vector<double> > X;
+        std::vector<std::vector<double> > Y;
+        std::vector<std::vector<std::complex<double>> > field;
+        std::vector<std::vector<double> > XX;
+        std::vector<std::vector<double> > YY;
 
         Source(double L, int N, double sigma, double wavelength);
         ~Source();
 
-        Beam* beam_out();
+        Beam beam_out();
     };
 }
 

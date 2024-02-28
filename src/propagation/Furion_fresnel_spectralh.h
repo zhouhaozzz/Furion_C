@@ -17,12 +17,7 @@ namespace Furion_NS
         Furion_Fresnel_Spectralh();
         ~Furion_Fresnel_Spectralh();
 
-        void Furion_fresnel_spectralh(int N, double deltax_Fre, std::complex<double>** in_Field, double wave_Lambda, double distance);
-        void FFTW2(std::complex<double>** output, std::complex<double>** in_Field, int N);
-        void iFFTW2(std::complex<double>** output, std::complex<double>** in_Field, int N);
-        void FFTshift(std::complex<double>** output, std::complex<double>** field, int N);
-        void iFFTshift(std::complex<double>** output, std::complex<double>** field, int N);
-
+        void Furion_fresnel_spectralh(int N, double deltax_Fre, std::vector<std::vector<std::complex<double>> >& in_Field, double wave_Lambda, double distance);
     };
 }
 

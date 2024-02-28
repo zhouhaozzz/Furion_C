@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef FUR_G_FURION__ELLIPSOID_MIRROR_H_
-#define FUR_G_FURION__ELLIPSOID_MIRROR_H_
+#ifndef FUR_G_FURION_ELLIPSOID_MIRROR_H_
+#define FUR_G_FURION_ELLIPSOID_MIRROR_H_
 
 #include "Furion.h"
 //#include "g_oe.h"

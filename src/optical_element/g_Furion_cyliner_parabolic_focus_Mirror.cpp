@@ -2,11 +2,11 @@
 
 using namespace Furion_NS;
 
-G_Furion_Cyliner_Parabolic_Focus_Mirror::G_Furion_Cyliner_Parabolic_Focus_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
-    : G_Oe(beam_in, ds, di, chi, theta, surface, grating)//, center(beam_in, ds, di, chi, theta, surface, r1, r2, grating)
+G_Furion_Cyliner_Parabolic_Focus_Mirror::G_Furion_Cyliner_Parabolic_Focus_Mirror(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r2, Grating* grating)
+    : G_Oe(beam_in, ds, di, chi, theta, surface, grating)//, center(beam_in, ds, di, chi, theta, surface, r2, grating)
 {
     cout << "G_Furion_Cyliner_Parabolic_Focus_Mirror 初始化" << endl;
-    //run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    //run(beam_in, ds, di, chi, theta, surface, r2, grating);
 }
 
 G_Furion_Cyliner_Parabolic_Focus_Mirror::~G_Furion_Cyliner_Parabolic_Focus_Mirror()
@@ -15,14 +15,14 @@ G_Furion_Cyliner_Parabolic_Focus_Mirror::~G_Furion_Cyliner_Parabolic_Focus_Mirro
     //cout << "G_Furion_Cyliner_Parabolic_Focus_Mirror 析构" << endl;
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::run(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r2, Grating* grating)
 {
     cout << "G_Furion_Cyliner_Parabolic_Focus_Mirror的run" << endl;
-    set_center(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    set_center(beam_in, ds, di, chi, theta, surface, r2, grating);
     reflect(beam_in, ds, di, chi, theta);
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::intersection(double* T)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::intersection(std::vector<double>& T)
 {
     int n = this->n;
     
@@ -31,13 +31,13 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::intersection(double* T)
     cout << "G_Furion_Cyliner_Parabolic_Focus_Mirror的intersection" << endl;
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::normal(double *Nx, double *Ny, double *Nz)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::normal(std::vector<double>& Nx, std::vector<double>& Ny, std::vector<double>& Nz)
 {
     cneter_to_oe_v(Nx, Ny, Nz, center->Nx, center->Ny, center->Nz);
     cout << "G_Furion_Cyliner_Parabolic_Focus_Mirror的normal" << endl;
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::matrixMulti_GFCPFM(double* L2, double* M2, double* N2, double* matrix, double* L, double* M, double* N, double dx, double dy, int n)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::matrixMulti_GFCPFM(std::vector<double>& L2, std::vector<double>& M2, std::vector<double>& N2, std::vector<double>& matrix, std::vector<double>& L, std::vector<double>& M, std::vector<double>& N, double dx, double dy, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -47,36 +47,38 @@ void G_Furion_Cyliner_Parabolic_Focus_Mirror::matrixMulti_GFCPFM(double* L2, dou
     }
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_p(double *X2, double *Y2, double *Z2, double *X, double *Y, double *Z)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_p(std::vector<double>& X2, std::vector<double>& Y2, std::vector<double>& Z2, std::vector<double>& X, std::vector<double>& Y, std::vector<double>& Z)
 {
     int n = this->n;
 
-    double *OS = new double[9];
+    //double *OS = new double[9];
+    std::vector<double> OS(9);
     f_rx.furion_rotx(this->theta, OS);
 
     double dx = center->r2 - 0.5 * center->p;
-    double dy = center->r2 * sin(2 * center->theta);
+    double dy = center->r2 * std::sin(2 * center->theta);
     matrixMulti_GFCPFM(X2, Y2, Z2, OS, X, Y, Z, dx, dy, n);
     
-    destory_1d(OS);
+    //destory_1d(OS);
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_v(double *Nx, double *Ny, double *Nz, double *L, double *M, double *N)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::cneter_to_oe_v(std::vector<double>& Nx, std::vector<double>& Ny, std::vector<double>& Nz, std::vector<double>& L, std::vector<double>& M, std::vector<double>& N)
 {
     int n = this->n;
 
-    double* OS = new double[9];
+    //double* OS = new double[9];
+    std::vector<double> OS(9);
 
     f_rx.furion_rotx(this->theta, OS);
 
     matrixMulti(Nx, Ny, Nz, OS, L, M, N, 0, n);
 
-    destory_1d(OS);
+    //destory_1d(OS);
 }
 
-void G_Furion_Cyliner_Parabolic_Focus_Mirror::set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r1, double r2, Grating* grating)
+void G_Furion_Cyliner_Parabolic_Focus_Mirror::set_center(G_Beam* beam_in, double ds, double di, double chi, double theta, No_Surfe* surface, double r2, Grating* grating)
 {
     cout << "G_Furion_Cyliner_Parabolic_Collimation_Mirror的set_center" << endl;
-    center = new G_Cyliner_Parabolic_Focus(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
-    center->run(beam_in, ds, di, chi, theta, surface, r1, r2, grating);
+    center = new G_Cyliner_Parabolic_Focus(beam_in, ds, di, chi, theta, surface, r2, grating);
+    center->run(beam_in, ds, di, chi, theta, surface, r2, grating);
 }
